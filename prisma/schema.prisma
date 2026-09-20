@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Auth & licensing ----------
+
+enum Role {
+  TEACHER
+  ADMIN
+}
+
+enum LicenseType {
+  TRIAL
+  ANNUAL
+  LIFETIME
+}
+
+enum LicenseStatus {
+  UNUSED
+  ACTIVE
+  REVOKED
+  EXPIRED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  name          String
+  role          Role      @default(TEACHER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  licenseKey    LicenseKey?
+  activations   Activation[]
+  texts         Text[]
+  lessonPlans   LessonPlan[]
+}
+
+model LicenseKey {
+  id                String        @id @default(cuid())
+  code              String        @unique
+  type              LicenseType   @default(ANNUAL)
+  status            LicenseStatus @default(UNUSED)
+  maxActivations    Int           @default(2)
+  expiresAt         DateTime?
+  createdAt         DateTime      @default(now())
+  activatedAt       DateTime?
+  revokedAt         DateTime?
+  notes             String?
+
+  userId            String?       @unique
+  user              User?         @relation(fields: [userId], references: [id])
+
+  activations       Activation[]
+
+  @@index([status])
+}
+
+model Activation {
+  id                 String     @id @default(cuid())
+  licenseKeyId       String
+  licenseKey         LicenseKey @relation(fields: [licenseKeyId], references: [id], onDelete: Cascade)
+  userId             String
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deviceFingerprint  String
+  deviceLabel        String?
+  ipAddress          String?
+  userAgent          String?
+  firstSeenAt        DateTime   @default(now())
+  lastSeenAt         DateTime   @default(now())
+  revoked            Boolean    @default(false)
+
+  @@unique([licenseKeyId, deviceFingerprint])
+  @@index([userId])
+}
+
+// ---------- Content ----------
+
+enum CefrLevel {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
+enum TextSource {
+  ORIGINAL
+  PUBLIC_DOMAIN
+  TEACHER_IMPORT
+}
+
+model Text {
+  id            String     @id @default(cuid())
+  title         String
+  level         CefrLevel
+  theme         String
+  tags          String[]   @default([])
+  ageGroup      String?
+  wordCount     Int
+  source        TextSource @default(ORIGINAL)
+  author        String?
+  body          String
+  isPublished   Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  createdById   String?
+  createdBy     User?      @relation(fields: [createdById], references: [id])
+
+  exercises     Exercise[]
+  lessonPlans   LessonPlan[]
+
+  @@index([level])
+  @@index([theme])
+}
+
+enum ExerciseType {
+  VOCAB_MATCH
+  TRUE_FALSE
+  COMPREHENSION
+  FILL_BLANK
+  DISCUSSION
+}
+
+model Exercise {
+  id       String       @id @default(cuid())
+  textId   String
+  text     Text         @relation(fields: [textId], references: [id], onDelete: Cascade)
+  type     ExerciseType
+  order    Int          @default(0)
+  data     Json
+
+  @@index([textId])
+}
+
+model LessonPlan {
+  id             String    @id @default(cuid())
+  title          String
+  level          CefrLevel
+  durationMin    Int       @default(55)
+  objectives     String[]  @default([])
+  warmup         String
+  vocabulary     Json
+  activities     Json
+  assessment     String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  textId         String
+  text           Text      @relation(fields: [textId], references: [id])
+
+  createdById    String
+  createdBy      User      @relation(fields: [createdById], references: [id])
+
+  @@index([createdById])
+}
