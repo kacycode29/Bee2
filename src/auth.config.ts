@@ -1,9 +1,9 @@
 import type { NextAuthConfig } from "next-auth";
 
 /**
- * Edge-safe config used by middleware. Must not import Prisma/bcrypt —
- * the actual credential check and license re-validation happen in
- * Node-runtime server components/route handlers (see src/auth.ts and
+ * Lightweight config used by Proxy (src/proxy.ts). Must not import
+ * Prisma/bcrypt — the actual credential check and license re-validation
+ * happen in server components/route handlers (see src/auth.ts and
  * src/lib/session.ts).
  */
 export const authConfig = {

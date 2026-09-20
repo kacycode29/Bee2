@@ -5,9 +5,9 @@ const COOKIE_NAME = "bee2_device";
 
 /**
  * Read-only lookup, safe to call from a plain Server Component render
- * (Next.js forbids writing cookies there). Middleware (src/middleware.ts)
- * mints this cookie on every request before the page tree renders, so this
- * should always resolve; undefined is only a defensive fallback.
+ * (Next.js forbids writing cookies there). Proxy (src/proxy.ts) mints this
+ * cookie on every request before the page tree renders, so this should
+ * always resolve; undefined is only a defensive fallback.
  */
 export async function getDeviceId(): Promise<string | undefined> {
   const store = await cookies();

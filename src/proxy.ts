@@ -8,7 +8,7 @@ const { auth } = NextAuth(authConfig);
 const DEVICE_COOKIE = "bee2_device";
 
 /**
- * Cookies can only be written from middleware, a Route Handler or a Server
+ * Cookies can only be written from Proxy, a Route Handler or a Server
  * Action — never from a plain Server Component render (Next.js throws).
  * The device-fingerprint cookie used to gate the per-license device cap
  * (see lib/session.ts) must exist before any protected page renders, so it
@@ -20,7 +20,7 @@ const DEVICE_COOKIE = "bee2_device";
  * our own `NextResponse`, only copying the redirect target over when
  * `auth()` actually decided to redirect.
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const authResult = (await auth(request as never)) as unknown as Response | undefined;
 
   const isRedirect = authResult && authResult.status >= 300 && authResult.status < 400;
@@ -29,8 +29,6 @@ export async function middleware(request: NextRequest) {
     : NextResponse.next();
 
   if (!request.cookies.get(DEVICE_COOKIE)) {
-    // Edge runtime: the Web Crypto API is available as a global (no
-    // import) — Node's `node:crypto` module is not.
     response.cookies.set(DEVICE_COOKIE, crypto.randomUUID(), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

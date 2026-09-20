@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { timingSafeEqual } from "crypto";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 
@@ -27,7 +28,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Requête invalide." }, { status: 400 });
   }
 
-  if (parsed.data.token !== configuredToken) {
+  const provided = Buffer.from(parsed.data.token);
+  const expected = Buffer.from(configuredToken);
+  const tokenValid =
+    provided.length === expected.length && timingSafeEqual(provided, expected);
+  if (!tokenValid) {
     return NextResponse.json({ error: "Jeton invalide." }, { status: 403 });
   }
 
