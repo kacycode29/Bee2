@@ -3,14 +3,20 @@ import { requireActiveLicense } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import { Card, Badge } from "@/components/ui/Card";
 import { LinkButton } from "@/components/ui/Button";
-import { FileText } from "lucide-react";
+import { ENUM_TO_CLASS_LEVEL } from "@/lib/lesson-plans";
+import { FileText, Plus } from "lucide-react";
+
+const SESSION_TYPE_LABEL: Record<string, string> = {
+  LEARNING: "Apprentissage",
+  CONSOLIDATION: "Consolidation",
+  PROBLEM_SOLVING: "Intégration",
+};
 
 export default async function LessonPlansPage() {
   const user = await requireActiveLicense();
 
   const plans = await prisma.lessonPlan.findMany({
     where: { createdById: user.id },
-    include: { text: true },
     orderBy: { createdAt: "desc" },
   });
 
@@ -21,11 +27,12 @@ export default async function LessonPlansPage() {
           <h1 className="text-2xl font-semibold text-slate-900">Mes fiches de leçon</h1>
           <p className="mt-1 text-sm text-slate-500">
             {plans.length} fiche{plans.length > 1 ? "s" : ""} générée
-            {plans.length > 1 ? "s" : ""}.
+            {plans.length > 1 ? "s" : ""}, au format officiel APC/PI.
           </p>
         </div>
-        <LinkButton href="/library" size="sm">
-          Parcourir la bibliothèque
+        <LinkButton href="/lesson-plans/new" size="sm">
+          <Plus className="h-4 w-4" />
+          Nouvelle fiche
         </LinkButton>
       </div>
 
@@ -38,13 +45,14 @@ export default async function LessonPlansPage() {
                   <FileText className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900">{plan.title}</h3>
+                  <h3 className="font-semibold text-slate-900">{plan.sessionTitle}</h3>
                   <p className="text-sm text-slate-500">
-                    D&apos;après « {plan.text.title} » · {plan.durationMin} min
+                    {ENUM_TO_CLASS_LEVEL[plan.classLevel]} · Unité {plan.unitNumber} — {plan.unitTitle} ·{" "}
+                    {plan.durationMin} min
                   </p>
                 </div>
               </div>
-              <Badge>{plan.level}</Badge>
+              <Badge>{SESSION_TYPE_LABEL[plan.typeOfSession]}</Badge>
             </Card>
           </Link>
         ))}
@@ -52,11 +60,11 @@ export default async function LessonPlansPage() {
 
       {plans.length === 0 && (
         <Card className="mt-6 text-center text-sm text-slate-500">
-          Vous n&apos;avez pas encore généré de fiche. Rendez-vous dans la{" "}
-          <Link href="/library" className="font-medium text-amber-600 hover:underline">
-            bibliothèque
+          Vous n&apos;avez pas encore généré de fiche.{" "}
+          <Link href="/lesson-plans/new" className="font-medium text-amber-600 hover:underline">
+            Créez votre première fiche
           </Link>{" "}
-          pour en créer une.
+          à partir du programme officiel.
         </Card>
       )}
     </div>

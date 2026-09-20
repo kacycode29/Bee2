@@ -4,22 +4,22 @@ import { BookOpen, KeyRound, FileDown, Sparkles, Filter, ShieldCheck } from "luc
 
 const features = [
   {
-    icon: BookOpen,
-    title: "Bibliothèque de textes",
-    description:
-      "Des dizaines de textes originaux classés par niveau CECRL (A1–C2), thème et tranche d'âge, avec la possibilité d'ajouter vos propres textes.",
-  },
-  {
     icon: Sparkles,
-    title: "Fiches de leçon automatiques",
+    title: "Fiches conformes au canevas APC/PI",
     description:
-      "Génère en un clic une fiche complète : objectifs, mise en route, vocabulaire, activités, évaluation — adaptée au niveau de votre classe.",
+      "Choisissez la classe, l'unité et la leçon du programme officiel (6e à 3e) : Bee2 génère la fiche complète — compétence, fonctions, structures, phases de la séance — selon le canevas exact du Guide d'utilisation des curricula.",
   },
   {
     icon: Filter,
-    title: "Exercices générés",
+    title: "Consolidation & situations d'intégration",
     description:
-      "Questions de vrai/faux, texte à trous et vocabulaire créés automatiquement à partir de chaque texte.",
+      "Séances de consolidation et situations d'intégration générées automatiquement, avec grille de correction critériée (Pertinence, Language Accuracy, Coherence, Refinement).",
+  },
+  {
+    icon: BookOpen,
+    title: "Bibliothèque de textes",
+    description:
+      "Des textes originaux classés par niveau CECRL, utilisables comme support de lecture pendant vos séances, avec la possibilité d'ajouter vos propres textes.",
   },
   {
     icon: FileDown,
@@ -68,8 +68,8 @@ export default function Home() {
           <br className="hidden sm:block" /> enfin sans friction.
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-600">
-          Bee2 réunit une bibliothèque de textes et un générateur de fiches de leçon
-          pour les enseignants d&apos;anglais, du collège au lycée.
+          Bee2 génère vos fiches pédagogiques d&apos;anglais (6e à 3e) selon le canevas
+          officiel APC/PI, directement à partir du programme du post-primaire.
         </p>
         <div className="mt-8 flex items-center justify-center gap-4">
           <LinkButton href="/signup" size="lg">

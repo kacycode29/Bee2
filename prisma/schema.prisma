@@ -28,53 +28,53 @@ enum LicenseStatus {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  passwordHash  String
-  name          String
-  role          Role      @default(TEACHER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(TEACHER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  licenseKey    LicenseKey?
-  activations   Activation[]
-  texts         Text[]
-  lessonPlans   LessonPlan[]
+  licenseKey  LicenseKey?
+  activations Activation[]
+  texts       Text[]
+  lessonPlans LessonPlan[]
 }
 
 model LicenseKey {
-  id                String        @id @default(cuid())
-  code              String        @unique
-  type              LicenseType   @default(ANNUAL)
-  status            LicenseStatus @default(UNUSED)
-  maxActivations    Int           @default(2)
-  expiresAt         DateTime?
-  createdAt         DateTime      @default(now())
-  activatedAt       DateTime?
-  revokedAt         DateTime?
-  notes             String?
+  id             String        @id @default(cuid())
+  code           String        @unique
+  type           LicenseType   @default(ANNUAL)
+  status         LicenseStatus @default(UNUSED)
+  maxActivations Int           @default(2)
+  expiresAt      DateTime?
+  createdAt      DateTime      @default(now())
+  activatedAt    DateTime?
+  revokedAt      DateTime?
+  notes          String?
 
-  userId            String?       @unique
-  user              User?         @relation(fields: [userId], references: [id])
+  userId String? @unique
+  user   User?   @relation(fields: [userId], references: [id])
 
-  activations       Activation[]
+  activations Activation[]
 
   @@index([status])
 }
 
 model Activation {
-  id                 String     @id @default(cuid())
-  licenseKeyId       String
-  licenseKey         LicenseKey @relation(fields: [licenseKeyId], references: [id], onDelete: Cascade)
-  userId             String
-  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  deviceFingerprint  String
-  deviceLabel        String?
-  ipAddress          String?
-  userAgent          String?
-  firstSeenAt        DateTime   @default(now())
-  lastSeenAt         DateTime   @default(now())
-  revoked            Boolean    @default(false)
+  id                String     @id @default(cuid())
+  licenseKeyId      String
+  licenseKey        LicenseKey @relation(fields: [licenseKeyId], references: [id], onDelete: Cascade)
+  userId            String
+  user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deviceFingerprint String
+  deviceLabel       String?
+  ipAddress         String?
+  userAgent         String?
+  firstSeenAt       DateTime   @default(now())
+  lastSeenAt        DateTime   @default(now())
+  revoked           Boolean    @default(false)
 
   @@unique([licenseKeyId, deviceFingerprint])
   @@index([userId])
@@ -98,25 +98,25 @@ enum TextSource {
 }
 
 model Text {
-  id            String     @id @default(cuid())
-  title         String
-  level         CefrLevel
-  theme         String
-  tags          String[]   @default([])
-  ageGroup      String?
-  wordCount     Int
-  source        TextSource @default(ORIGINAL)
-  author        String?
-  body          String
-  isPublished   Boolean    @default(true)
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  id          String     @id @default(cuid())
+  title       String
+  level       CefrLevel
+  theme       String
+  tags        String[]   @default([])
+  ageGroup    String?
+  wordCount   Int
+  source      TextSource @default(ORIGINAL)
+  author      String?
+  body        String
+  isPublished Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
-  createdById   String?
-  createdBy     User?      @relation(fields: [createdById], references: [id])
+  createdById String?
+  createdBy   User?   @relation(fields: [createdById], references: [id])
 
-  exercises     Exercise[]
-  lessonPlans   LessonPlan[]
+  exercises   Exercise[]
+  lessonPlans LessonPlan[]
 
   @@index([level])
   @@index([theme])
@@ -131,34 +131,87 @@ enum ExerciseType {
 }
 
 model Exercise {
-  id       String       @id @default(cuid())
-  textId   String
-  text     Text         @relation(fields: [textId], references: [id], onDelete: Cascade)
-  type     ExerciseType
-  order    Int          @default(0)
-  data     Json
+  id     String       @id @default(cuid())
+  textId String
+  text   Text         @relation(fields: [textId], references: [id], onDelete: Cascade)
+  type   ExerciseType
+  order  Int          @default(0)
+  data   Json
 
   @@index([textId])
 }
 
+// ---------- Official "fiche pédagogique" (APC/PI, Burkina Faso) ----------
+
+enum SchoolClassLevel {
+  SIXIEME
+  CINQUIEME
+  QUATRIEME
+  TROISIEME
+}
+
+enum SessionType {
+  LEARNING
+  CONSOLIDATION
+  PROBLEM_SOLVING
+}
+
 model LessonPlan {
-  id             String    @id @default(cuid())
-  title          String
-  level          CefrLevel
-  durationMin    Int       @default(55)
-  objectives     String[]  @default([])
-  warmup         String
-  vocabulary     Json
-  activities     Json
-  assessment     String
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  textId         String
-  text           Text      @relation(fields: [textId], references: [id])
+  // Administrative header (fields teachers fill in on the official form)
+  date                     DateTime @default(now())
+  teacherName              String
+  provincialDirectorate    String?
+  school                   String?
+  classLabel               String
+  boysCount                Int?
+  girlsCount               Int?
+  attendance               String?
+  learnersWithSpecialNeeds String?
 
-  createdById    String
-  createdBy      User      @relation(fields: [createdById], references: [id])
+  // Curriculum reference (from the official "planification détaillée")
+  classLevel   SchoolClassLevel
+  unitNumber   String
+  unitTitle    String
+  lessonNumber String
+  lessonTitle  String
+  sessionTitle String
+
+  competence           String
+  typeOfSession        SessionType
+  languageMainSkill    String
+  integratedSkills     String?
+  lessonContentVocab   String?
+  lessonContentGrammar String?
+  languageFunctions    String?
+  objectives           String[]    @default([])
+  methodsTechniques    String?
+  teachingAids         String?
+  durationMin          Int         @default(55)
+
+  /**
+   * Structured phase table matching the official framework for this session type.
+   */
+  phases Json
+
+  // Consolidation / problem-solving ("situation d'intégration") specifics
+  activityContext      String?
+  appreciationCriteria String[] @default([])
+  expectedProduction   String[] @default([])
+  /**
+   * Grille de correction critériée (Pertinence, Language Accuracy, Coherence, Refinement).
+   */
+  markingGrid          Json?
+
+  textId String?
+  text   Text?   @relation(fields: [textId], references: [id])
+
+  createdById String
+  createdBy   User   @relation(fields: [createdById], references: [id])
 
   @@index([createdById])
+  @@index([classLevel])
 }

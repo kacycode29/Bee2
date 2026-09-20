@@ -2,7 +2,6 @@ import { notFound, redirect } from "next/navigation";
 import { requireActiveLicense } from "@/lib/session";
 import { getTextWithExercises } from "@/lib/texts";
 import { generateClozeExercise } from "@/lib/text-engine";
-import { generateLessonPlan } from "@/lib/lesson-plans";
 import {
   parseVocabLines,
   parseTrueFalseLines,
@@ -13,11 +12,8 @@ import {
 } from "@/lib/exercises";
 import { Card, Badge } from "@/components/ui/Card";
 import { Button, LinkButton } from "@/components/ui/Button";
-import { Input, Label, Select, Textarea } from "@/components/ui/Input";
-import type { CefrLevel } from "@prisma/client";
+import { Label, Textarea } from "@/components/ui/Input";
 import { Download } from "lucide-react";
-
-const LEVELS: CefrLevel[] = ["A1", "A2", "B1", "B2", "C1", "C2"];
 
 export default async function TextDetailPage({
   params,
@@ -35,20 +31,6 @@ export default async function TextDetailPage({
   const cloze = generateClozeExercise(text.body, text.level);
 
   const isOwner = text.createdById === user.id;
-
-  async function generateLessonPlanAction(formData: FormData) {
-    "use server";
-    const u = await requireActiveLicense();
-    const level = String(formData.get("level") ?? text!.level) as CefrLevel;
-    const durationMin = Number(formData.get("durationMin") ?? 55);
-    const plan = await generateLessonPlan({
-      textId: text!.id,
-      userId: u.id,
-      level,
-      durationMin: Number.isFinite(durationMin) ? durationMin : 55,
-    });
-    redirect(`/lesson-plans/${plan.id}`);
-  }
 
   async function saveVocabAction(formData: FormData) {
     "use server";
@@ -109,33 +91,17 @@ export default async function TextDetailPage({
         </div>
       </Card>
 
-      <Card>
-        <h2 className="font-semibold text-slate-900">Générer une fiche de leçon</h2>
-        <p className="mt-1 text-sm text-slate-500">
-          Adaptez le niveau et la durée à votre classe : la fiche (objectifs, vocabulaire,
-          activités, évaluation) est générée automatiquement.
+      <Card className="border-amber-200 bg-amber-50">
+        <h2 className="font-semibold text-slate-900">Utiliser ce texte comme support</h2>
+        <p className="mt-1 text-sm text-slate-600">
+          Les fiches de leçon Bee2 suivent le canevas officiel APC/PI et le programme du
+          post-primaire. Générez-en une depuis{" "}
+          <LinkButton href="/lesson-plans/new" size="sm" className="mx-1 inline-flex">
+            Nouvelle fiche
+          </LinkButton>{" "}
+          en choisissant la classe, l&apos;unité et la leçon du programme ; vous pouvez ensuite
+          vous appuyer sur ce texte comme support de lecture pendant la séance.
         </p>
-        <form action={generateLessonPlanAction} className="mt-4 grid gap-4 sm:grid-cols-3">
-          <div>
-            <Label htmlFor="level">Niveau de la classe</Label>
-            <Select id="level" name="level" defaultValue={text.level}>
-              {LEVELS.map((l) => (
-                <option key={l} value={l}>
-                  {l}
-                </option>
-              ))}
-            </Select>
-          </div>
-          <div>
-            <Label htmlFor="durationMin">Durée (minutes)</Label>
-            <Input id="durationMin" name="durationMin" type="number" min={20} max={120} defaultValue={55} />
-          </div>
-          <div className="flex items-end">
-            <Button type="submit" className="w-full">
-              Générer la fiche
-            </Button>
-          </div>
-        </form>
       </Card>
 
       {vocabExercise && (

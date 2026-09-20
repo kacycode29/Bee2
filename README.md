@@ -1,9 +1,10 @@
 # Bee2
 
-Application de préparation de fiches de leçon pour les enseignants d'anglais :
-bibliothèque de textes classés par niveau CECRL, générateur automatique de
-fiches de leçon et d'exercices, export PDF, et accès protégé par un système
-de clé de licence.
+Application de préparation de fiches de leçon pour les enseignants d'anglais
+du post-primaire (Burkina Faso) : générateur de **fiches pédagogiques
+conformes au canevas officiel APC/PI**, alimenté par le programme réel
+(classes 6e à 3e), bibliothèque de textes de complément, export PDF, et accès
+protégé par un système de clé de licence.
 
 ## Stack technique
 
@@ -66,31 +67,42 @@ curl -X POST https://votre-domaine/api/admin/bootstrap \
 Il est recommandé de retirer ou changer `ADMIN_SETUP_TOKEN` une fois le
 premier admin créé.
 
-## Générateur de fiches de leçon
+## Générateur de fiches pédagogiques (canevas officiel APC/PI)
 
-La génération est **algorithmique**, sans dépendance à une API IA externe :
+Le programme (unités, leçons, fonctions, structures/lexis, objectifs, volume
+horaire par trimestre) pour les classes **6e, 5e, 4e et 3e** est transcrit
+depuis les documents officiels dans `src/data/curriculum.ts` — ce n'est pas
+du contenu inventé, c'est la donnée réelle de la planification détaillée du
+Ministère.
 
-- **Vocabulaire clé** : extraction heuristique des mots les plus distinctifs
-  du texte (longueur, absence de la liste des mots courants).
-- **Texte à trous** : suppression mécanique d'un mot par phrase choisie —
-  fonctionne sur n'importe quel texte, réponse toujours vérifiable.
-- **Objectifs, déroulé, évaluation** : générés à partir de modèles adaptés au
-  niveau CECRL choisi et à la durée du cours.
-- **Vrai/faux et questions de compréhension** : pour les textes de la
-  bibliothèque (écrits pour Bee2), ces exercices sont rédigés à la main et
-  stockés avec le texte. Pour un texte importé par un enseignant, l'appli
-  fournit un éditeur simple (une ligne = un item) pour que l'enseignant les
-  rédige lui-même — aucune IA ne « invente » de questions de compréhension
-  sans supervision humaine, ce qui serait risqué en pédagogie.
+Sur `/lesson-plans/new`, l'enseignant choisit **classe → unité → leçon →
+type de séance**, et Bee2 génère la fiche complète selon le canevas décrit
+dans le *Guide d'utilisation des curricula* (partie III) :
 
-## Contenu de la bibliothèque
+- **Séance d'apprentissage (Learning session)** : Discovery Phase (warm-up,
+  révision, mise en contexte, présentation du vocabulaire/de la grammaire/de
+  la compétence) → Practice Phase (activités contrôlées puis
+  semi-contrôlées) → devoirs → tâches administratives, avec le minutage
+  officiel (proportionnel à la durée choisie).
+- **Séance de consolidation** (fin de leçon) et **situation d'intégration /
+  Problem-solving** (fin d'unité) : Preparation → Task Setting (contexte et
+  consignes générés à partir des fonctions de la leçon/unité) → Task
+  Execution → Performance, plus une **grille de correction critériée**
+  (Pertinence / Language Accuracy / Coherence / Refinement) calculée
+  automatiquement, sur le même principe de points que l'exemple officiel du
+  guide.
 
-Le seed fournit **18 textes originaux** (3 par niveau CECRL, de A1 à C2,
-répartis sur plusieurs thèmes), chacun avec vocabulaire, vrai/faux et
-questions de compréhension rédigés à la main. C'est un point de départ, pas
-« des centaines de textes » : faites grandir la bibliothèque avec
-`/library/new` (import par les enseignants) ou en ajoutant des entrées dans
-`prisma/seed-data.ts` puis en relançant `npm run db:seed`.
+Toute cette logique est déterministe (`src/lib/fiche-pedagogique.ts`), sans
+dépendance à une API IA externe — reproductible et vérifiable.
+
+## Bibliothèque de textes (support complémentaire)
+
+En complément, Bee2 fournit une bibliothèque de textes de lecture (seed de
+18 textes originaux classés par niveau CECRL, plus import par les
+enseignants sur `/library/new`) que l'enseignant peut utiliser comme support
+pendant une séance. Ce n'est pas le cœur du produit — la fiche pédagogique
+officielle l'est — mais un outil annexe utile pour la partie
+compréhension écrite.
 
 ## Scripts
 

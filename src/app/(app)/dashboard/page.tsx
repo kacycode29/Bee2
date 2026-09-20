@@ -3,6 +3,7 @@ import { requireActiveLicense } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import { Card, Badge } from "@/components/ui/Card";
 import { LinkButton } from "@/components/ui/Button";
+import { ENUM_TO_CLASS_LEVEL } from "@/lib/lesson-plans";
 import { BookOpen, FileText, Plus } from "lucide-react";
 
 export default async function DashboardPage() {
@@ -12,7 +13,6 @@ export default async function DashboardPage() {
     prisma.text.count({ where: { isPublished: true } }),
     prisma.lessonPlan.findMany({
       where: { createdById: user.id },
-      include: { text: true },
       orderBy: { createdAt: "desc" },
       take: 5,
     }),
@@ -76,10 +76,12 @@ export default async function DashboardPage() {
             <Link key={plan.id} href={`/lesson-plans/${plan.id}`}>
               <Card className="flex items-center justify-between transition-shadow hover:shadow-md">
                 <div>
-                  <h3 className="font-medium text-slate-900">{plan.title}</h3>
-                  <p className="text-sm text-slate-500">D&apos;après « {plan.text.title} »</p>
+                  <h3 className="font-medium text-slate-900">{plan.sessionTitle}</h3>
+                  <p className="text-sm text-slate-500">
+                    Unité {plan.unitNumber} — {plan.unitTitle}
+                  </p>
                 </div>
-                <Badge>{plan.level}</Badge>
+                <Badge>{ENUM_TO_CLASS_LEVEL[plan.classLevel]}</Badge>
               </Card>
             </Link>
           ))}
