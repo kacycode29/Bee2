@@ -8,11 +8,17 @@ import { Card } from "@/components/ui/Card";
 import { Input, Label } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 
+/** Formats free-typed input into XXXXX-XXXXX-XXXXX as the user types. */
+function formatLicenseInput(raw: string): string {
+  const clean = raw.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 15);
+  return clean.match(/.{1,5}/g)?.join("-") ?? clean;
+}
+
 export default function SignupPage() {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [licenseCode, setLicenseCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +31,7 @@ export default function SignupPage() {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ username, password, licenseCode }),
       });
       const data = await res.json().catch(() => ({}));
 
@@ -35,7 +41,7 @@ export default function SignupPage() {
         return;
       }
 
-      const signInRes = await signIn("credentials", { email, password, redirect: false });
+      const signInRes = await signIn("credentials", { username, password, redirect: false });
       if (signInRes?.error) {
         setError(
           "Votre compte a été créé, mais la connexion automatique a échoué. Essayez de vous connecter manuellement."
@@ -45,7 +51,7 @@ export default function SignupPage() {
         return;
       }
 
-      router.push("/activate");
+      router.push("/dashboard");
       router.refresh();
     } catch {
       setError(
@@ -60,30 +66,21 @@ export default function SignupPage() {
       <Card className="w-full max-w-sm">
         <h1 className="text-xl font-semibold text-slate-900">Créer un compte</h1>
         <p className="mt-1 text-sm text-slate-500">
-          Puis activez votre clé de licence pour débloquer l&apos;accès.
+          Une clé d&apos;accès valide est requise pour créer un compte.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <Label htmlFor="name">Nom</Label>
+            <Label htmlFor="username">Nom d&apos;utilisateur</Label>
             <Input
-              id="name"
+              id="username"
               required
-              minLength={2}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoComplete="name"
-            />
-          </div>
-          <div>
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
+              minLength={3}
+              maxLength={30}
+              pattern="[a-zA-Z0-9._-]+"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              autoComplete="username"
             />
           </div>
           <div>
@@ -98,6 +95,18 @@ export default function SignupPage() {
               autoComplete="new-password"
             />
             <p className="mt-1 text-xs text-slate-400">8 caractères minimum.</p>
+          </div>
+          <div>
+            <Label htmlFor="licenseCode">Clé d&apos;accès</Label>
+            <Input
+              id="licenseCode"
+              required
+              placeholder="XXXXX-XXXXX-XXXXX"
+              maxLength={17}
+              value={licenseCode}
+              onChange={(e) => setLicenseCode(formatLicenseInput(e.target.value))}
+              className="font-mono tracking-wider"
+            />
           </div>
 
           {error && <p className="text-sm text-red-600">{error}</p>}

@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/Button";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -20,13 +20,13 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
     const res = await signIn("credentials", {
-      email,
+      username,
       password,
       redirect: false,
     });
     setLoading(false);
     if (res?.error) {
-      setError("Email ou mot de passe incorrect.");
+      setError("Nom d'utilisateur ou mot de passe incorrect.");
       return;
     }
     router.push("/dashboard");
@@ -41,14 +41,13 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="username">Nom d&apos;utilisateur</Label>
             <Input
-              id="email"
-              type="email"
+              id="username"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              autoComplete="username"
             />
           </div>
           <div>

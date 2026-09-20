@@ -3,7 +3,22 @@ import { randomUUID } from "crypto";
 
 const COOKIE_NAME = "bee2_device";
 
-/** Persistent per-browser id, used to bind a license activation to a device. */
+/**
+ * Read-only lookup, safe to call from a plain Server Component render
+ * (Next.js forbids writing cookies there). Middleware (src/middleware.ts)
+ * mints this cookie on every request before the page tree renders, so this
+ * should always resolve; undefined is only a defensive fallback.
+ */
+export async function getDeviceId(): Promise<string | undefined> {
+  const store = await cookies();
+  return store.get(COOKIE_NAME)?.value;
+}
+
+/**
+ * Persistent per-browser id, used to bind a license activation to a device.
+ * Only call this from a Route Handler or Server Action (where writing
+ * cookies is legal) — use `getDeviceId()` from Server Components.
+ */
 export async function getOrCreateDeviceId(): Promise<string> {
   const store = await cookies();
   const existing = store.get(COOKIE_NAME)?.value;

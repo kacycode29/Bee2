@@ -38,7 +38,7 @@ export default async function AccountPage() {
       <MinimalHeader />
       <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-10">
         <h1 className="text-2xl font-semibold text-slate-900">Mon compte</h1>
-        <p className="mt-1 text-sm text-slate-500">{user.email}</p>
+        <p className="mt-1 text-sm text-slate-500">@{user.username}</p>
 
         <Card className="mt-6">
           <div className="flex items-center justify-between">

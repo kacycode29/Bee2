@@ -22,7 +22,7 @@ export default async function DashboardPage() {
   return (
     <div>
       <h1 className="text-2xl font-semibold text-slate-900">
-        Bonjour {user.name?.split(" ")[0] ?? ""} 👋
+        Bonjour {user.username} 👋
       </h1>
       <p className="mt-1 text-sm text-slate-500">
         Voici un aperçu de votre espace Bee2.

@@ -28,9 +28,9 @@ const features = [
   },
   {
     icon: KeyRound,
-    title: "Compte protégé par licence",
+    title: "Accès par clé de licence",
     description:
-      "Chaque compte est activé par une clé unique, liée à un nombre limité d'appareils.",
+      "Une clé d'accès valide est obligatoire dès la création du compte : nom d'utilisateur, mot de passe et clé, dans le même formulaire.",
   },
   {
     icon: ShieldCheck,
@@ -73,7 +73,7 @@ export default function Home() {
         </p>
         <div className="mt-8 flex items-center justify-center gap-4">
           <LinkButton href="/signup" size="lg">
-            Commencer gratuitement
+            Créer un compte avec ma clé d&apos;accès
           </LinkButton>
           <LinkButton href="/login" variant="secondary" size="lg">
             J&apos;ai déjà un compte

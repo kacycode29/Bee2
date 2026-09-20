@@ -25,20 +25,19 @@ function generateCode() {
 
 async function main() {
   console.log("Seeding admin account...");
-  const adminEmail = process.env.SEED_ADMIN_EMAIL ?? "admin@bee2.local";
+  const adminUsername = process.env.SEED_ADMIN_USERNAME ?? "admin";
   const adminPassword = process.env.SEED_ADMIN_PASSWORD ?? "ChangeMe123!";
 
   const admin = await prisma.user.upsert({
-    where: { email: adminEmail },
+    where: { username: adminUsername },
     update: {},
     create: {
-      email: adminEmail,
-      name: "Administrateur Bee2",
+      username: adminUsername,
       role: "ADMIN",
       passwordHash: await bcrypt.hash(adminPassword, 12),
     },
   });
-  console.log(`  admin: ${admin.email} / ${adminPassword} (à changer en production)`);
+  console.log(`  admin: ${admin.username} / ${adminPassword} (à changer en production)`);
 
   console.log(`Seeding ${STARTER_KEY_COUNT} starter license keys...`);
   const existingKeys = await prisma.licenseKey.count();

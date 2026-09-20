@@ -34,21 +34,23 @@ protégé par un système de clé de licence.
    npm run dev
    ```
 
-Le seed affiche dans la console l'email/mot de passe admin, et écrit les
-**100 clés de licence de démarrage** (format `XXXXX-XXXXX-XXXXX`, 15
-caractères alphanumériques non ambigus, façon clé produit Windows) dans le
+Le seed affiche dans la console le nom d'utilisateur/mot de passe admin, et
+écrit les **100 clés de licence de démarrage** (format `XXXXX-XXXXX-XXXXX`,
+15 caractères alphanumériques non ambigus, façon clé produit Windows) dans le
 fichier `starter-license-keys.txt` à la racine du projet — ce fichier n'est
-jamais commité (voir `.gitignore`). N'importe laquelle de ces clés s'active
-sur `/activate`.
+jamais commité (voir `.gitignore`).
 
 ## Système de licence (anti-piratage)
 
+- **Il n'y a pas de compte gratuit** : la création de compte demande
+  uniquement un **nom d'utilisateur**, un **mot de passe** et une **clé
+  d'accès** valide — les trois dans le même formulaire (`/signup`). Le
+  compte et l'activation de la licence sont créés en une seule opération
+  atomique : si la clé est invalide, expirée, révoquée, déjà utilisée ou a
+  atteint sa limite d'appareils, **aucun compte n'est créé**.
 - Les clés font **15 caractères alphanumériques en 3 groupes de 5**
   (`XXXXX-XXXXX-XXXXX`), sur un alphabet sans caractères ambigus (pas de
   `0`/`O`, `1`/`I`) — inspiré du format des clés de produit Windows.
-- Chaque enseignant crée un compte, puis doit **activer une clé** (`/activate`)
-  pour accéder à l'application. Sans licence active, toutes les pages
-  protégées redirigent vers cette page.
 - Une clé se lie au **premier compte** qui l'active, et à un **nombre limité
   d'appareils** (empreinte stockée dans un cookie httpOnly). Au-delà de la
   limite, l'activation sur un nouvel appareil est refusée tant qu'un appareil
@@ -56,7 +58,8 @@ sur `/activate`.
 - Le statut de la licence est **revérifié en base à chaque requête protégée**
   (pas seulement au login) : si un administrateur révoque une clé, l'accès de
   l'utilisateur est coupé dès sa prochaine requête, sans attendre l'expiration
-  de sa session.
+  de sa session. `/activate` reste disponible pour renouveler/changer de clé
+  (licence expirée ou révoquée).
 - Les administrateurs (`/admin/keys`) génèrent, révoquent et réactivent les
   clés ; `/admin/users` permet de promouvoir un compte administrateur.
 
@@ -68,7 +71,7 @@ inscrit :
 ```bash
 curl -X POST https://votre-domaine/api/admin/bootstrap \
   -H "Content-Type: application/json" \
-  -d '{"email":"vous@exemple.com","token":"VALEUR_DE_ADMIN_SETUP_TOKEN"}'
+  -d '{"username":"votre_nom_utilisateur","token":"VALEUR_DE_ADMIN_SETUP_TOKEN"}'
 ```
 
 Il est recommandé de retirer ou changer `ADMIN_SETUP_TOKEN` une fois le

@@ -35,8 +35,7 @@ export default async function AdminUsersPage() {
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead>
             <tr className="border-b border-slate-200 text-slate-500">
-              <th className="py-2 pr-4 font-medium">Nom</th>
-              <th className="py-2 pr-4 font-medium">Email</th>
+              <th className="py-2 pr-4 font-medium">Nom d&apos;utilisateur</th>
               <th className="py-2 pr-4 font-medium">Rôle</th>
               <th className="py-2 pr-4 font-medium">Licence</th>
               <th className="py-2 pr-4 font-medium"></th>
@@ -45,8 +44,7 @@ export default async function AdminUsersPage() {
           <tbody>
             {users.map((u) => (
               <tr key={u.id} className="border-b border-slate-100">
-                <td className="py-2 pr-4">{u.name}</td>
-                <td className="py-2 pr-4">{u.email}</td>
+                <td className="py-2 pr-4">@{u.username}</td>
                 <td className="py-2 pr-4">
                   <Badge tone={u.role === "ADMIN" ? "warning" : "default"}>{u.role}</Badge>
                 </td>

@@ -138,7 +138,7 @@ export default async function AdminKeysPage() {
                 <td className="py-2 pr-4">
                   <Badge tone={STATUS_TONE[k.status]}>{k.status}</Badge>
                 </td>
-                <td className="py-2 pr-4">{k.user?.email ?? "—"}</td>
+                <td className="py-2 pr-4">{k.user ? `@${k.user.username}` : "—"}</td>
                 <td className="py-2 pr-4">
                   {k._count.activations} / {k.maxActivations}
                 </td>

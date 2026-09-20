@@ -14,7 +14,7 @@ export default async function NewLessonPlanPage() {
       </p>
 
       <div className="mt-6">
-        <NewLessonPlanForm defaultTeacherName={user.name ?? ""} />
+        <NewLessonPlanForm defaultTeacherName={user.username ?? ""} />
       </div>
     </div>
   );

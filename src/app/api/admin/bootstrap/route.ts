@@ -3,7 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 
 const schema = z.object({
-  email: z.string().email(),
+  username: z.string().min(3),
   token: z.string().min(1),
 });
 
@@ -31,14 +31,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Jeton invalide." }, { status: 403 });
   }
 
-  const user = await prisma.user.update({
-    where: { email: parsed.data.email.toLowerCase() },
-    data: { role: "ADMIN" },
-  }).catch(() => null);
+  const user = await prisma.user
+    .update({
+      where: { username: parsed.data.username.toLowerCase() },
+      data: { role: "ADMIN" },
+    })
+    .catch(() => null);
 
   if (!user) {
     return NextResponse.json({ error: "Utilisateur introuvable." }, { status: 404 });
   }
 
-  return NextResponse.json({ ok: true, email: user.email });
+  return NextResponse.json({ ok: true, username: user.username });
 }

@@ -17,7 +17,7 @@ export async function createLessonPlanAction(formData: FormData) {
   const mainSkill = String(formData.get("mainSkill") ?? "Speaking") as SessionSkill;
   const durationMin = Number(formData.get("durationMin") ?? 55);
 
-  const teacherName = String(formData.get("teacherName") ?? user.name ?? "");
+  const teacherName = String(formData.get("teacherName") ?? user.username ?? "");
   const school = String(formData.get("school") ?? "") || undefined;
   const provincialDirectorate = String(formData.get("provincialDirectorate") ?? "") || undefined;
   const classLabel = String(formData.get("classLabel") ?? classLevel);
