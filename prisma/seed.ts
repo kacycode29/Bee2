@@ -1,20 +1,26 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import fs from "node:fs";
+import path from "node:path";
 import { SEED_TEXTS } from "./seed-data";
 
 const prisma = new PrismaClient();
+
+const STARTER_KEY_COUNT = 100;
 
 function countWords(body: string): number {
   return body.trim().split(/\s+/).filter(Boolean).length;
 }
 
+// Same unambiguous alphabet as src/lib/license.ts (no 0/O, 1/I).
+const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 function segment() {
-  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  return Array.from({ length: 4 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join("");
+  return Array.from({ length: 5 }, () => ALPHABET[Math.floor(Math.random() * ALPHABET.length)]).join("");
 }
 
+/** 15-character product key, Windows-style: XXXXX-XXXXX-XXXXX. */
 function generateCode() {
-  return `BEE2-${segment()}-${segment()}-${segment()}`;
+  return `${segment()}-${segment()}-${segment()}`;
 }
 
 async function main() {
@@ -34,20 +40,37 @@ async function main() {
   });
   console.log(`  admin: ${admin.email} / ${adminPassword} (à changer en production)`);
 
-  console.log("Seeding demo license keys...");
+  console.log(`Seeding ${STARTER_KEY_COUNT} starter license keys...`);
   const existingKeys = await prisma.licenseKey.count();
+  let starterKeys: string[] = [];
   if (existingKeys === 0) {
+    const codes = new Set<string>();
+    while (codes.size < STARTER_KEY_COUNT) codes.add(generateCode());
+    starterKeys = Array.from(codes);
+
     await prisma.licenseKey.createMany({
-      data: Array.from({ length: 5 }, () => ({
-        code: generateCode(),
-        type: "LIFETIME",
-        maxActivations: 3,
-        notes: "Clé de démonstration (seed)",
+      data: starterKeys.map((code) => ({
+        code,
+        type: "ANNUAL",
+        maxActivations: 2,
+        notes: "Clé de démarrage (seed)",
       })),
+      skipDuplicates: true,
     });
+  } else {
+    starterKeys = (await prisma.licenseKey.findMany({ select: { code: true } })).map((k) => k.code);
   }
-  const demoKeys = await prisma.licenseKey.findMany({ take: 5 });
-  demoKeys.forEach((k) => console.log(`  clé démo: ${k.code}`));
+
+  const outPath = path.join(__dirname, "..", "starter-license-keys.txt");
+  fs.writeFileSync(
+    outPath,
+    `Bee2 — ${starterKeys.length} clés de licence (format XXXXX-XXXXX-XXXXX)\n` +
+      `Générées le ${new Date().toISOString().slice(0, 10)}\n\n` +
+      starterKeys.join("\n") +
+      "\n"
+  );
+  console.log(`  ${starterKeys.length} clés écrites dans ${outPath}`);
+  console.log(`  exemple : ${starterKeys[0]}`);
 
   console.log(`Seeding ${SEED_TEXTS.length} texts...`);
   for (const seedText of SEED_TEXTS) {

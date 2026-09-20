@@ -21,27 +21,38 @@ export default function SignupPage() {
     setError(null);
     setLoading(true);
 
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
-    });
-    const data = await res.json();
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await res.json().catch(() => ({}));
 
-    if (!res.ok) {
-      setError(data.error ?? "Une erreur est survenue.");
+      if (!res.ok) {
+        setError(data.error ?? `Une erreur est survenue (code ${res.status}).`);
+        setLoading(false);
+        return;
+      }
+
+      const signInRes = await signIn("credentials", { email, password, redirect: false });
+      if (signInRes?.error) {
+        setError(
+          "Votre compte a été créé, mais la connexion automatique a échoué. Essayez de vous connecter manuellement."
+        );
+        setLoading(false);
+        router.push("/login");
+        return;
+      }
+
+      router.push("/activate");
+      router.refresh();
+    } catch {
+      setError(
+        "Impossible de contacter le serveur. Vérifiez votre connexion et que le serveur (et sa base de données) sont bien démarrés, puis réessayez."
+      );
       setLoading(false);
-      return;
     }
-
-    const signInRes = await signIn("credentials", { email, password, redirect: false });
-    setLoading(false);
-    if (signInRes?.error) {
-      router.push("/login");
-      return;
-    }
-    router.push("/activate");
-    router.refresh();
   }
 
   return (

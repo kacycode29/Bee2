@@ -4,10 +4,20 @@ import type { LicenseKey, LicenseStatus, LicenseType } from "@prisma/client";
 
 // Unambiguous alphabet (no 0/O, 1/I) to keep keys easy to type by hand.
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-const segment = customAlphabet(ALPHABET, 4);
+const segment = customAlphabet(ALPHABET, 5);
 
+/**
+ * 15-character product key, formatted like a Windows product key
+ * (XXXXX-XXXXX-XXXXX) for familiarity — 3 groups of 5 unambiguous
+ * alphanumeric characters, dashes not counted in the 15.
+ */
 export function generateLicenseCode(): string {
-  return `BEE2-${segment()}-${segment()}-${segment()}`;
+  return `${segment()}-${segment()}-${segment()}`;
+}
+
+/** Normalizes user input (trims, uppercases, strips stray spaces around dashes). */
+export function normalizeLicenseCode(raw: string): string {
+  return raw.trim().toUpperCase().replace(/\s+/g, "");
 }
 
 export function licenseDurationDays(type: LicenseType): number | null {

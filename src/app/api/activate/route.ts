@@ -2,17 +2,13 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { licenseDurationDays } from "@/lib/license";
+import { licenseDurationDays, normalizeLicenseCode } from "@/lib/license";
 import { getOrCreateDeviceId, getRequestMeta } from "@/lib/device";
 
 const activateSchema = z.object({
   code: z.string().min(6).max(40),
   deviceLabel: z.string().max(60).optional(),
 });
-
-function normalizeCode(raw: string) {
-  return raw.trim().toUpperCase();
-}
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -26,7 +22,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Clé invalide." }, { status: 400 });
   }
 
-  const code = normalizeCode(parsed.data.code);
+  const code = normalizeLicenseCode(parsed.data.code);
   const userId = session.user.id;
 
   const license = await prisma.licenseKey.findUnique({ where: { code } });

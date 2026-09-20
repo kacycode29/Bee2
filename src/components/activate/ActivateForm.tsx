@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation";
 import { Input, Label } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 
+/** Formats free-typed input into XXXXX-XXXXX-XXXXX as the user types. */
+function formatLicenseInput(raw: string): string {
+  const clean = raw.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 15);
+  return clean.match(/.{1,5}/g)?.join("-") ?? clean;
+}
+
 export function ActivateForm() {
   const router = useRouter();
   const [code, setCode] = useState("");
@@ -40,9 +46,10 @@ export function ActivateForm() {
         <Input
           id="code"
           required
-          placeholder="BEE2-XXXX-XXXX-XXXX"
+          placeholder="XXXXX-XXXXX-XXXXX"
           value={code}
-          onChange={(e) => setCode(e.target.value.toUpperCase())}
+          maxLength={17}
+          onChange={(e) => setCode(formatLicenseInput(e.target.value))}
           className="font-mono tracking-wider"
         />
       </div>

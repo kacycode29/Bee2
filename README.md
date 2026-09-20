@@ -26,7 +26,7 @@ protégé par un système de clé de licence.
    ```bash
    npm install
    npm run db:push     # crée les tables à partir du schéma Prisma
-   npm run db:seed     # crée un compte admin, 5 clés de démo et ~18 textes
+   npm run db:seed     # crée un compte admin, 100 clés de licence et ~18 textes
    ```
 
 3. Lancer le serveur de développement :
@@ -34,11 +34,18 @@ protégé par un système de clé de licence.
    npm run dev
    ```
 
-Le seed affiche dans la console l'email/mot de passe admin et les clés de
-licence de démonstration à utiliser sur `/activate`.
+Le seed affiche dans la console l'email/mot de passe admin, et écrit les
+**100 clés de licence de démarrage** (format `XXXXX-XXXXX-XXXXX`, 15
+caractères alphanumériques non ambigus, façon clé produit Windows) dans le
+fichier `starter-license-keys.txt` à la racine du projet — ce fichier n'est
+jamais commité (voir `.gitignore`). N'importe laquelle de ces clés s'active
+sur `/activate`.
 
 ## Système de licence (anti-piratage)
 
+- Les clés font **15 caractères alphanumériques en 3 groupes de 5**
+  (`XXXXX-XXXXX-XXXXX`), sur un alphabet sans caractères ambigus (pas de
+  `0`/`O`, `1`/`I`) — inspiré du format des clés de produit Windows.
 - Chaque enseignant crée un compte, puis doit **activer une clé** (`/activate`)
   pour accéder à l'application. Sans licence active, toutes les pages
   protégées redirigent vers cette page.
