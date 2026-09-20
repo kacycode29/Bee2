@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { Prisma } from "@prisma/client";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { licenseDurationDays, normalizeLicenseCode } from "@/lib/license";
@@ -9,6 +10,8 @@ const activateSchema = z.object({
   code: z.string().min(6).max(40),
   deviceLabel: z.string().max(60).optional(),
 });
+
+class LicenseAlreadyClaimedError extends Error {}
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -75,40 +78,72 @@ export async function POST(request: Request) {
     );
   }
 
-  await prisma.$transaction(async (tx) => {
-    if (license.status === "UNUSED") {
-      const durationDays = licenseDurationDays(license.type);
-      await tx.licenseKey.update({
-        where: { id: license.id },
-        data: {
-          status: "ACTIVE",
+  try {
+    await prisma.$transaction(async (tx) => {
+      if (license.status === "UNUSED") {
+        // Atomic claim, re-checked at the database level: two concurrent
+        // first-time activations of the same brand-new key (by two
+        // different accounts) both pass the plain-SELECT checks above
+        // before either has committed. Gating this UPDATE on
+        // status = "UNUSED" means only the first to actually commit can
+        // ever match; the loser gets count === 0 here instead of silently
+        // overwriting the winner's claim.
+        const durationDays = licenseDurationDays(license.type);
+        const claim = await tx.licenseKey.updateMany({
+          where: { id: license.id, status: "UNUSED" },
+          data: {
+            status: "ACTIVE",
+            userId,
+            activatedAt: new Date(),
+            expiresAt: durationDays
+              ? new Date(Date.now() + durationDays * 24 * 60 * 60 * 1000)
+              : null,
+          },
+        });
+        if (claim.count === 0) {
+          throw new LicenseAlreadyClaimedError();
+        }
+      }
+
+      await tx.activation.upsert({
+        where: {
+          licenseKeyId_deviceFingerprint: {
+            licenseKeyId: license.id,
+            deviceFingerprint,
+          },
+        },
+        update: { lastSeenAt: new Date(), ipAddress, userAgent, revoked: false },
+        create: {
+          licenseKeyId: license.id,
           userId,
-          activatedAt: new Date(),
-          expiresAt: durationDays
-            ? new Date(Date.now() + durationDays * 24 * 60 * 60 * 1000)
-            : null,
+          deviceFingerprint,
+          deviceLabel: parsed.data.deviceLabel,
+          ipAddress,
+          userAgent,
         },
       });
-    }
-
-    await tx.activation.upsert({
-      where: {
-        licenseKeyId_deviceFingerprint: {
-          licenseKeyId: license.id,
-          deviceFingerprint,
-        },
-      },
-      update: { lastSeenAt: new Date(), ipAddress, userAgent, revoked: false },
-      create: {
-        licenseKeyId: license.id,
-        userId,
-        deviceFingerprint,
-        deviceLabel: parsed.data.deviceLabel,
-        ipAddress,
-        userAgent,
-      },
     });
-  });
+  } catch (err) {
+    if (err instanceof LicenseAlreadyClaimedError) {
+      return NextResponse.json(
+        {
+          error:
+            "Cette clé vient d'être utilisée par quelqu'un d'autre au même moment. Réessayez avec une autre clé.",
+        },
+        { status: 409 }
+      );
+    }
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
+      return NextResponse.json(
+        { error: "Votre compte a déjà une licence active. Réessayez." },
+        { status: 409 }
+      );
+    }
+    return NextResponse.json(
+      { error: "Impossible d'activer cette clé. Réessayez." },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }

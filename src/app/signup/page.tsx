@@ -87,7 +87,7 @@ export default function SignupPage() {
               required
               minLength={3}
               maxLength={30}
-              pattern="[a-zA-Z0-9._-]+"
+              pattern="[a-zA-Z0-9._\-]+"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"

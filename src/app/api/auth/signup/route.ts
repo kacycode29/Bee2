@@ -17,6 +17,8 @@ const signupSchema = z.object({
   licenseCode: z.string().trim().min(6).max(40),
 });
 
+class LicenseAlreadyClaimedError extends Error {}
+
 /**
  * Creates the account and activates the license key in a single atomic
  * request: there is no "free" account state — a valid key is required to
@@ -56,7 +58,7 @@ export async function POST(request: Request) {
   if (license.expiresAt && license.expiresAt.getTime() < Date.now()) {
     return NextResponse.json({ error: "Cette clé d'accès a expiré." }, { status: 403 });
   }
-  if (license.userId) {
+  if (license.userId || license.status !== "UNUSED") {
     return NextResponse.json(
       { error: "Cette clé d'accès est déjà utilisée par un autre compte." },
       { status: 403 }
@@ -65,16 +67,6 @@ export async function POST(request: Request) {
 
   const deviceFingerprint = await getOrCreateDeviceId();
   const { ipAddress, userAgent } = await getRequestMeta();
-
-  const activeDeviceCount = await prisma.activation.count({
-    where: { licenseKeyId: license.id, revoked: false },
-  });
-  if (activeDeviceCount >= license.maxActivations) {
-    return NextResponse.json(
-      { error: "Cette clé d'accès a atteint son nombre maximal d'appareils." },
-      { status: 403 }
-    );
-  }
 
   const passwordHash = await bcrypt.hash(password, 12);
   const durationDays = licenseDurationDays(license.type);
@@ -85,8 +77,19 @@ export async function POST(request: Request) {
         data: { username, passwordHash, role: "TEACHER" },
       });
 
-      await tx.licenseKey.update({
-        where: { id: license.id },
+      // Atomic "claim": the WHERE clause re-checks status = UNUSED at the
+      // database level, not just in the earlier plain SELECT above. Two
+      // concurrent signups for the same brand-new key both pass that
+      // earlier check (neither has committed yet), so without this guard
+      // both would go on to "successfully" bind the same key to two
+      // different accounts — the second write would silently overwrite
+      // the first's, leaving one account signed up but license-less.
+      // Postgres serializes concurrent UPDATEs on the same row, so only
+      // one of these ever matches and updates a row; the loser gets
+      // count === 0 and the whole transaction (including its user
+      // creation) is rolled back below.
+      const claim = await tx.licenseKey.updateMany({
+        where: { id: license.id, status: "UNUSED" },
         data: {
           status: "ACTIVE",
           userId: user.id,
@@ -96,6 +99,9 @@ export async function POST(request: Request) {
             : null,
         },
       });
+      if (claim.count === 0) {
+        throw new LicenseAlreadyClaimedError();
+      }
 
       await tx.activation.create({
         data: {
@@ -108,9 +114,18 @@ export async function POST(request: Request) {
       });
     });
   } catch (err) {
+    if (err instanceof LicenseAlreadyClaimedError) {
+      return NextResponse.json(
+        {
+          error:
+            "Cette clé d'accès vient d'être utilisée par quelqu'un d'autre au même moment. Réessayez avec une autre clé.",
+        },
+        { status: 409 }
+      );
+    }
     // A concurrent duplicate request (e.g. a double click, or the form
     // being submitted twice before the button's disabled state applies)
-    // can race past the pre-checks above and hit a unique constraint
+    // can race past the username pre-check and hit its unique constraint
     // inside the transaction — that's an ordinary conflict, not a server
     // failure, so it gets a proper 409 instead of a generic 500.
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
