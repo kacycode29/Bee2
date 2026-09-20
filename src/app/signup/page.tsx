@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -21,9 +21,16 @@ export default function SignupPage() {
   const [licenseCode, setLicenseCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  // React state updates aren't synchronous, so `disabled={loading}` alone
+  // leaves a brief window where a fast double click (or double Enter) fires
+  // two submits before the button re-renders as disabled. This ref closes
+  // that window immediately.
+  const submittingRef = useRef(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (submittingRef.current) return;
+    submittingRef.current = true;
     setError(null);
     setLoading(true);
 
@@ -38,6 +45,7 @@ export default function SignupPage() {
       if (!res.ok) {
         setError(data.error ?? `Une erreur est survenue (code ${res.status}).`);
         setLoading(false);
+        submittingRef.current = false;
         return;
       }
 
@@ -47,6 +55,7 @@ export default function SignupPage() {
           "Votre compte a été créé, mais la connexion automatique a échoué. Essayez de vous connecter manuellement."
         );
         setLoading(false);
+        submittingRef.current = false;
         router.push("/login");
         return;
       }
@@ -58,6 +67,7 @@ export default function SignupPage() {
         "Impossible de contacter le serveur. Vérifiez votre connexion et que le serveur (et sa base de données) sont bien démarrés, puis réessayez."
       );
       setLoading(false);
+      submittingRef.current = false;
     }
   }
 

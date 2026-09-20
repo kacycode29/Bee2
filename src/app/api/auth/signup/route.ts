@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { licenseDurationDays, normalizeLicenseCode } from "@/lib/license";
 import { getOrCreateDeviceId, getRequestMeta } from "@/lib/device";
@@ -106,7 +107,25 @@ export async function POST(request: Request) {
         },
       });
     });
-  } catch {
+  } catch (err) {
+    // A concurrent duplicate request (e.g. a double click, or the form
+    // being submitted twice before the button's disabled state applies)
+    // can race past the pre-checks above and hit a unique constraint
+    // inside the transaction — that's an ordinary conflict, not a server
+    // failure, so it gets a proper 409 instead of a generic 500.
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
+      const target = (err.meta?.target as string[] | undefined)?.join(",") ?? "";
+      if (target.includes("username")) {
+        return NextResponse.json(
+          { error: "Ce nom d'utilisateur est déjà pris." },
+          { status: 409 }
+        );
+      }
+      return NextResponse.json(
+        { error: "Cette clé d'accès vient d'être utilisée. Réessayez avec une autre clé." },
+        { status: 409 }
+      );
+    }
     return NextResponse.json(
       { error: "Impossible de créer le compte. Réessayez." },
       { status: 500 }
