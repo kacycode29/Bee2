@@ -77,6 +77,62 @@ curl -X POST https://votre-domaine/api/admin/bootstrap \
 Il est recommandé de retirer ou changer `ADMIN_SETUP_TOKEN` une fois le
 premier admin créé.
 
+### Limitation du taux de requêtes (rate limiting)
+
+`/api/auth/signup`, la connexion (`authorize` de NextAuth), `/api/activate`,
+`/api/auth/forgot-password` et `/api/admin/bootstrap` sont protégés contre
+le brute-force par une limite en mémoire (voir `src/lib/rate-limit.ts`). La
+clé combine l'adresse IP et le cookie d'appareil (`bee2_device`, déjà minté
+par `src/proxy.ts`) plutôt que l'IP seule : sans proxy inverse de confiance
+qui renseigne `X-Forwarded-For`, tous les visiteurs anonymes retomberaient
+sur la même IP « inconnue », et les échecs de connexion d'une personne
+bloqueraient tout le monde. C'est une protection basique (mémoire du
+processus, pas de store partagé) : suffisante pour freiner un brute-force
+occasionnel, pas un mécanisme de sécurité absolu contre un attaquant qui
+maîtrise les en-têtes/cookies qu'il envoie.
+
+### Mot de passe oublié
+
+Comme il n'y a pas d'adresse e-mail, `/forgot-password` prouve l'identité
+avec le nom d'utilisateur **et** la clé de licence exacte liée au compte
+(seul le propriétaire payant connaît les deux). Un administrateur peut
+aussi réinitialiser le mot de passe de n'importe quel enseignant depuis
+`/admin/users` (mot de passe temporaire affiché une seule fois, à
+communiquer manuellement) ; l'enseignant peut ensuite changer son mot de
+passe depuis `/account`.
+
+## Paiement en ligne (Stripe, optionnel)
+
+`/acheter` propose l'achat direct d'une clé de licence (Stripe Checkout).
+**C'est désactivé par défaut** — sans `STRIPE_SECRET_KEY`, la page affiche
+un message « pas encore activé » et les routes `/api/checkout` /
+`/api/webhooks/stripe` répondent proprement en 503, sans rien casser
+ailleurs dans l'application.
+
+Pour l'activer :
+
+1. Renseignez `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
+   `STRIPE_CURRENCY` et au moins un des deux
+   `STRIPE_PRICE_ANNUAL_CENTS` / `STRIPE_PRICE_LIFETIME_CENTS` (voir
+   `.env.example`) — les prix ne sont jamais codés en dur, ils viennent
+   uniquement de ces variables.
+2. Configurez un webhook Stripe pointant vers
+   `https://votre-domaine/api/webhooks/stripe`, événement
+   `checkout.session.completed`.
+3. Après un paiement confirmé, la clé est générée automatiquement (webhook,
+   avec la page de succès `/acheter/success` comme filet de sécurité si le
+   webhook n'est pas encore arrivé) et affichée à l'acheteur — à noter
+   précieusement, car elle sert aussi de preuve d'identité pour
+   `/forgot-password`.
+
+**Limite connue** : ce code n'a pas pu être testé avec un vrai paiement de
+bout en bout dans l'environnement de développement de cet agent (pas
+d'accès sortant vers Stripe ni d'URL publique pour recevoir le webhook).
+La structure suit l'intégration officielle Stripe Checkout et le
+comportement « désactivé proprement sans clés » a été vérifié ; un test
+réel avec vos propres clés Stripe (mode test) est recommandé avant mise en
+production.
+
 ## Générateur de fiches pédagogiques (canevas officiel APC/PI)
 
 Le programme (unités, leçons, fonctions, structures/lexis, objectifs, volume

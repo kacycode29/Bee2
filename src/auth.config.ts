@@ -16,7 +16,16 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const publicPaths = ["/", "/login", "/signup", "/api/auth"];
+      const publicPaths = [
+        "/",
+        "/login",
+        "/signup",
+        "/forgot-password",
+        "/acheter",
+        "/api/auth",
+        "/api/checkout",
+        "/api/webhooks/stripe",
+      ];
       const isPublic = publicPaths.some(
         (p) => nextUrl.pathname === p || nextUrl.pathname.startsWith(p + "/")
       );

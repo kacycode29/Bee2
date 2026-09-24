@@ -1,6 +1,7 @@
 import { LinkButton } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { BookOpen, KeyRound, FileDown, Sparkles, Filter, ShieldCheck } from "lucide-react";
+import { isStripeConfigured } from "@/lib/stripe";
 
 const features = [
   {
@@ -79,6 +80,14 @@ export default function Home() {
             J&apos;ai déjà un compte
           </LinkButton>
         </div>
+        {isStripeConfigured() && (
+          <p className="mt-4 text-sm text-slate-500">
+            Pas encore de clé ?{" "}
+            <LinkButton href="/acheter" variant="ghost" size="sm" className="inline-flex">
+              Acheter une clé d&apos;accès
+            </LinkButton>
+          </p>
+        )}
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-24">

@@ -22,6 +22,35 @@ function sweep(now: number) {
 
 export type RateLimitResult = { ok: true } | { ok: false; retryAfterSec: number };
 
+const DEVICE_COOKIE_NAME = "bee2_device";
+
+/**
+ * Builds a rate-limit key from a raw Request, without depending on
+ * next/headers (so it works identically inside NextAuth's `authorize`,
+ * which hands us the Request directly, and inside Route Handlers).
+ *
+ * IP alone is not a safe key on its own: `X-Forwarded-For` is only
+ * trustworthy behind a reverse proxy that overwrites it, and when it's
+ * absent every anonymous client falls back to the same "unknown" bucket —
+ * which would mean one user's failed logins could lock out every other
+ * anonymous visitor sharing that fallback. Folding in the httpOnly device
+ * cookie (minted by src/proxy.ts on first visit, not something a normal
+ * client can omit without losing the cookie jar) gives each browser its
+ * own bucket even when the IP can't be trusted or resolved.
+ */
+export function buildRateLimitKey(request: Request, prefix: string): string {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    request.headers.get("x-real-ip") ??
+    "unknown";
+
+  const cookieHeader = request.headers.get("cookie") ?? "";
+  const match = cookieHeader.match(new RegExp(`(?:^|;\\s*)${DEVICE_COOKIE_NAME}=([^;]+)`));
+  const device = match ? decodeURIComponent(match[1]) : "no-device";
+
+  return `${prefix}:${ip}:${device}`;
+}
+
 export function checkRateLimit(
   key: string,
   { limit, windowMs }: { limit: number; windowMs: number }

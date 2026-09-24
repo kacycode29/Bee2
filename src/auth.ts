@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import { authConfig } from "@/auth.config";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { buildRateLimitKey, checkRateLimit } from "@/lib/rate-limit";
 
 const credentialsSchema = z.object({
   username: z.string().min(3),
@@ -25,11 +25,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Mot de passe", type: "password" },
       },
       async authorize(rawCredentials, request) {
-        const ipAddress =
-          request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-          request.headers.get("x-real-ip") ??
-          "unknown";
-        const rateLimit = checkRateLimit(`login:${ipAddress}`, {
+        const rateLimit = checkRateLimit(buildRateLimitKey(request, "login"), {
           limit: 10,
           windowMs: 15 * 60 * 1000,
         });

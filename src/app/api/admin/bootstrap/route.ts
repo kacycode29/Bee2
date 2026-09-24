@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { getRequestMeta } from "@/lib/device";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { buildRateLimitKey, checkRateLimit } from "@/lib/rate-limit";
 
 const schema = z.object({
   username: z.string().min(3),
@@ -16,8 +15,7 @@ const schema = z.object({
  * ADMIN_SETUP_TOKEN (server-only secret) — rotate/remove it after use.
  */
 export async function POST(request: Request) {
-  const { ipAddress } = await getRequestMeta();
-  const rateLimit = checkRateLimit(`admin-bootstrap:${ipAddress ?? "unknown"}`, {
+  const rateLimit = checkRateLimit(buildRateLimitKey(request, "admin-bootstrap"), {
     limit: 5,
     windowMs: 15 * 60 * 1000,
   });

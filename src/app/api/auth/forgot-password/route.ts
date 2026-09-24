@@ -3,8 +3,7 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { normalizeLicenseCode } from "@/lib/license";
-import { getRequestMeta } from "@/lib/device";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { buildRateLimitKey, checkRateLimit } from "@/lib/rate-limit";
 
 const schema = z.object({
   username: z.string().trim().min(3).max(30),
@@ -22,8 +21,7 @@ const GENERIC_ERROR = "Nom d'utilisateur ou clé d'accès invalide.";
  * row so one correct field never leaks whether the other was wrong.
  */
 export async function POST(request: Request) {
-  const { ipAddress } = await getRequestMeta();
-  const rateLimit = checkRateLimit(`forgot-password:${ipAddress ?? "unknown"}`, {
+  const rateLimit = checkRateLimit(buildRateLimitKey(request, "forgot-password"), {
     limit: 5,
     windowMs: 15 * 60 * 1000,
   });

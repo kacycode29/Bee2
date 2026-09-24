@@ -5,7 +5,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { licenseDurationDays, normalizeLicenseCode } from "@/lib/license";
 import { getOrCreateDeviceId, getRequestMeta } from "@/lib/device";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { buildRateLimitKey, checkRateLimit } from "@/lib/rate-limit";
 
 const signupSchema = z.object({
   username: z
@@ -28,7 +28,7 @@ class LicenseAlreadyClaimedError extends Error {}
  */
 export async function POST(request: Request) {
   const { ipAddress, userAgent } = await getRequestMeta();
-  const rateLimit = checkRateLimit(`signup:${ipAddress ?? "unknown"}`, {
+  const rateLimit = checkRateLimit(buildRateLimitKey(request, "signup"), {
     limit: 8,
     windowMs: 15 * 60 * 1000,
   });
