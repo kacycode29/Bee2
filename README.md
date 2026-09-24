@@ -26,7 +26,7 @@ protégé par un système de clé de licence.
    ```bash
    npm install
    npm run db:push     # crée les tables à partir du schéma Prisma
-   npm run db:seed     # crée un compte admin, 100 clés de licence et ~18 textes
+   npm run db:seed     # crée un compte admin, 100 clés de licence et ~45 textes
    ```
 
 3. Lancer le serveur de développement :
@@ -108,7 +108,7 @@ dépendance à une API IA externe — reproductible et vérifiable.
 ## Bibliothèque de textes (support complémentaire)
 
 En complément, Bee2 fournit une bibliothèque de textes de lecture (seed de
-18 textes originaux classés par niveau CECRL, plus import par les
+45 textes originaux classés par niveau CECRL, plus import par les
 enseignants sur `/library/new`) que l'enseignant peut utiliser comme support
 pendant une séance. Ce n'est pas le cœur du produit — la fiche pédagogique
 officielle l'est — mais un outil annexe utile pour la partie

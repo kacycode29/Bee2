@@ -651,4 +651,888 @@ Whichever approach ultimately prevails, the underlying governance challenge is u
       "What two different approaches to addressing this legal gap are mentioned in the text?",
     ],
   },
+  // ---------------- A1 (additional) ----------------
+  {
+    title: "My Best Friend",
+    level: "A1",
+    theme: "Amitié",
+    ageGroup: "6e-5e",
+    tags: ["amitié", "présentation", "vie quotidienne"],
+    body: `Hello! My name is Aïcha. I want to tell you about my best friend. Her name is Fatou.
+
+Fatou is twelve years old, like me. She lives near my house. We walk to school together every morning.
+
+Fatou is very funny and kind. She likes to sing and dance. I like to read books.
+
+On Saturdays, we play together in the garden. Sometimes we do our homework together too. Fatou is a great friend.`,
+    vocab: [
+      { word: "best friend", definition: "meilleur(e) ami(e)" },
+      { word: "kind", definition: "gentil(le)" },
+      { word: "funny", definition: "drôle" },
+      { word: "garden", definition: "jardin" },
+      { word: "together", definition: "ensemble" },
+    ],
+    trueFalse: [
+      { statement: "Fatou is thirteen years old.", answer: false },
+      { statement: "Fatou and Aïcha walk to school together.", answer: true },
+      { statement: "Fatou likes to read books.", answer: false },
+      { statement: "The girls play together on Saturdays.", answer: true },
+    ],
+    questions: [
+      "How old is Fatou?",
+      "What does Fatou like to do?",
+      "What do the girls do on Saturdays?",
+    ],
+  },
+  {
+    title: "At the Market",
+    level: "A1",
+    theme: "Vie quotidienne",
+    ageGroup: "6e-5e",
+    tags: ["marché", "famille", "vie quotidienne"],
+    body: `Every Saturday morning, I go to the market with my mother. The market is big and noisy. There are many sellers.
+
+We buy vegetables, fruit and fish. My mother likes to buy tomatoes and onions. I like to buy mangoes because they are sweet.
+
+At the market, people talk and laugh. Some sellers sing to sell their food. It is very colourful.
+
+After the market, we go home and cook lunch together. I love market day.`,
+    vocab: [
+      { word: "market", definition: "marché" },
+      { word: "seller", definition: "vendeur / vendeuse" },
+      { word: "vegetables", definition: "légumes" },
+      { word: "sweet", definition: "sucré(e)" },
+      { word: "noisy", definition: "bruyant(e)" },
+    ],
+    trueFalse: [
+      { statement: "The narrator goes to the market on Sundays.", answer: false },
+      { statement: "The market is quiet.", answer: false },
+      { statement: "The narrator likes mangoes because they are sweet.", answer: true },
+      { statement: "They cook lunch together after the market.", answer: true },
+    ],
+    questions: [
+      "When does the narrator go to the market?",
+      "What does the mother like to buy?",
+      "What happens after the market?",
+    ],
+  },
+  {
+    title: "My Favourite Sport",
+    level: "A1",
+    theme: "Sport",
+    ageGroup: "6e-5e",
+    tags: ["sport", "football", "loisirs"],
+    body: `My favourite sport is football. I play football every day after school with my friends.
+
+We play in a field near my house. There are no real goals, so we use stones. My team has five players.
+
+I am a good runner. I like to score goals. My best friend Ibrahim is the goalkeeper. He is very tall.
+
+On Sundays, we watch football matches on television with my father. Football makes me very happy.`,
+    vocab: [
+      { word: "favourite", definition: "préféré(e)" },
+      { word: "goalkeeper", definition: "gardien de but" },
+      { word: "to score a goal", definition: "marquer un but" },
+      { word: "field", definition: "terrain" },
+      { word: "team", definition: "équipe" },
+    ],
+    trueFalse: [
+      { statement: "The narrator plays football every day after school.", answer: true },
+      { statement: "The team uses real goals.", answer: false },
+      { statement: "Ibrahim is the goalkeeper.", answer: true },
+      { statement: "They watch football on Saturdays.", answer: false },
+    ],
+    questions: [
+      "Who does the narrator play football with?",
+      "What does the team use instead of real goals?",
+      "What do they do on Sundays?",
+    ],
+  },
+  {
+    title: "A Rainy Day",
+    level: "A1",
+    theme: "Météo",
+    ageGroup: "6e-5e",
+    tags: ["météo", "famille", "vie quotidienne"],
+    body: `Today it is raining. The sky is grey and the wind is strong. I cannot play outside.
+
+I stay at home with my little sister. We watch the rain from the window. The street is empty.
+
+My mother makes hot tea for us. We drink tea and eat bread. Then we play cards together.
+
+In the evening, the rain stops. The sky is clear again. Tomorrow, I hope the sun will shine.`,
+    vocab: [
+      { word: "rain", definition: "pluie" },
+      { word: "sky", definition: "ciel" },
+      { word: "wind", definition: "vent" },
+      { word: "outside", definition: "dehors" },
+      { word: "to hope", definition: "espérer" },
+    ],
+    trueFalse: [
+      { statement: "It is sunny today.", answer: false },
+      { statement: "The narrator plays outside all day.", answer: false },
+      { statement: "The mother makes hot tea.", answer: true },
+      { statement: "The rain stops in the evening.", answer: true },
+    ],
+    questions: [
+      "Why can't the narrator play outside?",
+      "What does the family do while it rains?",
+      "What does the narrator hope for tomorrow?",
+    ],
+  },
+  // ---------------- A2 (additional) ----------------
+  {
+    title: "My Village",
+    level: "A2",
+    theme: "Vie rurale",
+    ageGroup: "4e-3e",
+    tags: ["village", "famille", "vie quotidienne"],
+    body: `I live in a small village in the countryside. About two hundred people live here. Life in my village is calm and simple.
+
+Most families grow their own food. My father grows maize and beans on his farm. My mother sells vegetables at the small market every Wednesday.
+
+There is one primary school in the village, but no secondary school. Older students, like me, travel to the nearest town for lessons. The journey takes about thirty minutes by bicycle.
+
+In the evening, children play together outside until it gets dark. There is no electricity in every house, so many families use candles or lamps at night. I love my village because everyone knows each other and helps each other.`,
+    vocab: [
+      { word: "countryside", definition: "campagne" },
+      { word: "farm", definition: "ferme" },
+      { word: "journey", definition: "trajet" },
+      { word: "electricity", definition: "électricité" },
+      { word: "calm", definition: "calme" },
+    ],
+    trueFalse: [
+      { statement: "About two thousand people live in the village.", answer: false },
+      { statement: "The village has both a primary and a secondary school.", answer: false },
+      { statement: "The narrator travels to town by bicycle.", answer: true },
+      { statement: "Every house in the village has electricity.", answer: false },
+    ],
+    questions: [
+      "What do the narrator's parents do?",
+      "Where do older students go for secondary school?",
+      "Why does the narrator love the village?",
+    ],
+  },
+  {
+    title: "A Birthday Party",
+    level: "A2",
+    theme: "Fêtes",
+    ageGroup: "4e-3e",
+    tags: ["anniversaire", "famille", "fêtes"],
+    body: `Last Saturday, my sister Aminata had her tenth birthday party. My mother started preparing the food early in the morning.
+
+We invited fifteen children from the neighbourhood. Everyone arrived at three o'clock in the afternoon. They wore their best clothes and brought small gifts.
+
+We played games in the garden, like hide-and-seek and musical chairs. Then we ate rice, chicken and a big chocolate cake. Aminata was very happy when she saw the cake with ten candles.
+
+After the meal, we danced to music for two hours. All the children sang "Happy Birthday" together. It was a wonderful day, and Aminata said it was her best birthday ever.`,
+    vocab: [
+      { word: "birthday", definition: "anniversaire" },
+      { word: "neighbourhood", definition: "quartier" },
+      { word: "gift", definition: "cadeau" },
+      { word: "candle", definition: "bougie" },
+      { word: "wonderful", definition: "merveilleux(se)" },
+    ],
+    trueFalse: [
+      { statement: "Aminata turned ten years old.", answer: true },
+      { statement: "Fifty children were invited.", answer: false },
+      { statement: "The children played hide-and-seek.", answer: true },
+      { statement: "Nobody sang 'Happy Birthday'.", answer: false },
+    ],
+    questions: [
+      "How many children were invited to the party?",
+      "What games did the children play?",
+      "How did Aminata feel about her birthday?",
+    ],
+  },
+  {
+    title: "Learning to Cook",
+    level: "A2",
+    theme: "Cuisine",
+    ageGroup: "4e-3e",
+    tags: ["cuisine", "famille", "vie quotidienne"],
+    body: `This year, I decided to learn how to cook. My grandmother is an excellent cook, so I asked her to teach me.
+
+Every Sunday, I visit her house and we cook together. First, she taught me how to make rice properly, without burning it. Then she showed me how to prepare a simple tomato sauce with onions, garlic and spices.
+
+Last week, I cooked a whole meal by myself for the first time. I made rice with fish and vegetables. My family said the food tasted delicious, and I felt very proud.
+
+My grandmother says that cooking is not difficult if you are patient and follow the steps carefully. Now I want to learn how to bake bread next.`,
+    vocab: [
+      { word: "to cook", definition: "cuisiner" },
+      { word: "to burn", definition: "brûler" },
+      { word: "spices", definition: "épices" },
+      { word: "proud", definition: "fier / fière" },
+      { word: "patient", definition: "patient(e)" },
+    ],
+    trueFalse: [
+      { statement: "The narrator's grandmother is a bad cook.", answer: false },
+      { statement: "They cook together every Sunday.", answer: true },
+      { statement: "The narrator has never cooked a whole meal alone.", answer: false },
+      { statement: "The narrator wants to learn to bake bread next.", answer: true },
+    ],
+    questions: [
+      "Who is teaching the narrator to cook?",
+      "What did the narrator cook alone for the first time?",
+      "According to the grandmother, what do you need to cook well?",
+    ],
+  },
+  {
+    title: "My Dream Job",
+    level: "A2",
+    theme: "Métiers",
+    ageGroup: "4e-3e",
+    tags: ["métiers", "avenir", "école"],
+    body: `When I finish school, I want to become a nurse. I have wanted this job since I was eight years old, when a nurse helped my little brother in hospital.
+
+Nurses take care of sick people every day. They give medicine, check patients and comfort families who are worried. It is a difficult job, but also a very important one.
+
+To become a nurse, I need to study hard, especially science subjects like Biology and Chemistry. After secondary school, I will need three more years of training at a nursing school.
+
+My parents support my dream. They say that helping other people is one of the best jobs in the world. I am ready to work hard to achieve my goal.`,
+    vocab: [
+      { word: "nurse", definition: "infirmier / infirmière" },
+      { word: "patient (noun)", definition: "patient(e)" },
+      { word: "to comfort", definition: "réconforter" },
+      { word: "to achieve", definition: "atteindre, réaliser" },
+      { word: "worried", definition: "inquiet / inquiète" },
+    ],
+    trueFalse: [
+      { statement: "The narrator wants to become a doctor.", answer: false },
+      { statement: "Nurses only give medicine and do nothing else.", answer: false },
+      { statement: "The narrator needs three more years of training after secondary school.", answer: true },
+      { statement: "The narrator's parents do not support this dream.", answer: false },
+    ],
+    questions: [
+      "Why does the narrator want to become a nurse?",
+      "What subjects does the narrator need to study hard?",
+      "How do the narrator's parents feel about this dream?",
+    ],
+  },
+  // ---------------- B1 (additional) ----------------
+  {
+    title: "The Importance of Reading",
+    level: "B1",
+    theme: "Éducation",
+    ageGroup: "Lycée",
+    tags: ["éducation", "lecture", "habitudes"],
+    body: `Reading is one of the most valuable habits a person can develop. Beyond helping students perform better at school, reading regularly brings many benefits that last a lifetime.
+
+First, reading improves vocabulary and writing skills. People who read often are usually better at expressing their ideas clearly, both in speech and in writing. Second, books open windows onto different cultures, historical periods and ways of thinking. A novel set in another country can teach a reader more about that place than a textbook ever could.
+
+Reading also has psychological benefits. Studies suggest that reading fiction can increase empathy, because readers imagine themselves in the position of different characters. In addition, many people find reading relaxing; it can reduce stress after a long day.
+
+Unfortunately, in the age of smartphones and social media, many young people read less than previous generations. Teachers and parents increasingly encourage children to set aside time each day for reading, even just twenty minutes, to keep this valuable habit alive.`,
+    vocab: [
+      { word: "valuable", definition: "précieux(se), utile" },
+      { word: "habit", definition: "habitude" },
+      { word: "empathy", definition: "empathie" },
+      { word: "previous", definition: "précédent(e)" },
+      { word: "to encourage", definition: "encourager" },
+    ],
+    trueFalse: [
+      { statement: "Reading only helps students at school and has no other benefits.", answer: false },
+      { statement: "Reading fiction may increase empathy, according to studies.", answer: true },
+      { statement: "Young people today read more than previous generations.", answer: false },
+      { statement: "Teachers encourage children to read at least twenty minutes a day.", answer: true },
+    ],
+    questions: [
+      "According to the text, what two skills does reading improve?",
+      "Why might reading fiction increase empathy?",
+      "What is one reason young people read less today?",
+    ],
+  },
+  {
+    title: "Traditional Festivals in West Africa",
+    level: "B1",
+    theme: "Culture",
+    ageGroup: "Lycée",
+    tags: ["culture", "traditions", "fêtes"],
+    body: `West Africa is home to a rich variety of traditional festivals, many of which have been celebrated for hundreds of years. These festivals often mark important moments such as harvests, the start of a new year, or the coming of age of young people.
+
+One well-known example is the Yam Festival, celebrated in several countries to give thanks for a good harvest and to honour ancestors. During the festival, communities gather to sing, dance, wear colourful traditional clothes and share large meals featuring yams prepared in different ways.
+
+Masquerade festivals are also common, where performers wear elaborate masks and costumes representing spirits or ancestors. These masquerades are believed to protect the community and bring good fortune for the coming year.
+
+Today, many festivals also attract tourists, who travel to experience the music, dancing and traditional food. While some young people worry that modern life is changing these traditions, festival organisers work hard to teach children the meaning behind each ceremony, so that the culture continues for future generations.`,
+    vocab: [
+      { word: "harvest", definition: "récolte" },
+      { word: "ancestor", definition: "ancêtre" },
+      { word: "costume", definition: "costume" },
+      { word: "fortune", definition: "chance, fortune" },
+      { word: "ceremony", definition: "cérémonie" },
+    ],
+    trueFalse: [
+      { statement: "The Yam Festival celebrates a good harvest.", answer: true },
+      { statement: "Masquerade performers wear ordinary clothes.", answer: false },
+      { statement: "Festivals attract no tourists at all.", answer: false },
+      { statement: "Organisers try to teach children the meaning of the ceremonies.", answer: true },
+    ],
+    questions: [
+      "What does the Yam Festival celebrate?",
+      "What do masquerade performers wear, and what do they represent?",
+      "Why do festival organisers teach children about these traditions?",
+    ],
+  },
+  {
+    title: "Youth Unemployment",
+    level: "B1",
+    theme: "Emploi des jeunes",
+    ageGroup: "Lycée",
+    tags: ["travail", "société", "jeunesse"],
+    body: `Youth unemployment remains one of the biggest challenges facing many countries today. Millions of young people finish their education every year but struggle to find a stable job.
+
+There are several reasons for this problem. In some places, the education system does not always prepare students with the practical skills that employers need. In other cases, there simply are not enough jobs being created to match the number of young graduates entering the job market.
+
+The consequences of youth unemployment can be serious. Without a steady income, many young people find it difficult to become financially independent, start a family, or plan for the future. Some governments and organisations have created programmes to help, such as vocational training centres and small loans for young entrepreneurs who want to start their own businesses.
+
+Experts agree that solving youth unemployment requires cooperation between governments, schools and businesses. Only by working together can societies create enough good opportunities for the next generation.`,
+    vocab: [
+      { word: "unemployment", definition: "chômage" },
+      { word: "graduate (noun)", definition: "diplômé(e)" },
+      { word: "income", definition: "revenu" },
+      { word: "entrepreneur", definition: "entrepreneur(e)" },
+      { word: "cooperation", definition: "coopération" },
+    ],
+    trueFalse: [
+      { statement: "Youth unemployment is not considered a serious problem today.", answer: false },
+      { statement: "One cause mentioned is a mismatch between education and job skills.", answer: true },
+      { statement: "Some programmes offer small loans to young entrepreneurs.", answer: true },
+      { statement: "The text says only governments can solve this problem alone.", answer: false },
+    ],
+    questions: [
+      "What are two reasons given for youth unemployment?",
+      "What consequences can youth unemployment have for young people?",
+      "According to the text, how can this problem be solved?",
+    ],
+  },
+  {
+    title: "The Benefits of Team Sports",
+    level: "B1",
+    theme: "Sport",
+    ageGroup: "Lycée",
+    tags: ["sport", "santé", "école"],
+    body: `Playing a team sport, such as football, basketball or volleyball, offers much more than physical exercise. It teaches young people important life skills that can help them both on and off the field.
+
+One major benefit is learning to work with others. In a team, players must communicate, trust their teammates and understand that success depends on everyone's effort, not just one star player. This builds strong social skills that are useful in school, work and family life.
+
+Team sports also teach discipline. Players must attend training regularly, follow the coach's instructions and practise even when they do not feel motivated. Over time, this builds resilience and the ability to handle both winning and losing gracefully.
+
+Finally, team sports are simply good for physical and mental health. Regular exercise reduces stress and improves mood, while being part of a team can reduce feelings of loneliness. For these reasons, many schools now consider team sports an essential part of a young person's education.`,
+    vocab: [
+      { word: "teammate", definition: "coéquipier / coéquipière" },
+      { word: "discipline", definition: "discipline" },
+      { word: "resilience", definition: "résilience" },
+      { word: "gracefully", definition: "avec grâce, dignement" },
+      { word: "loneliness", definition: "solitude" },
+    ],
+    trueFalse: [
+      { statement: "Team sports only provide physical exercise and nothing else.", answer: false },
+      { statement: "Success in a team sport depends only on one star player.", answer: false },
+      { statement: "Team sports can help build discipline and resilience.", answer: true },
+      { statement: "The text says team sports have no effect on mental health.", answer: false },
+    ],
+    questions: [
+      "What social skill do players develop through team sports, according to the text?",
+      "How do team sports build discipline?",
+      "What are two health benefits of team sports mentioned in the text?",
+    ],
+  },
+  {
+    title: "Mobile Money and Everyday Life",
+    level: "B1",
+    theme: "Économie",
+    ageGroup: "Lycée",
+    tags: ["économie", "technologie", "vie quotidienne"],
+    body: `In the last ten years, mobile money services have transformed the way many people manage their finances, especially in areas where traditional banks are hard to reach.
+
+With a simple mobile phone, users can send money to family members, pay for goods at local shops, and pay bills such as electricity or school fees, without ever visiting a bank. This is especially useful in rural areas, where the nearest bank branch might be hours away.
+
+Mobile money has also helped small business owners. Market sellers and shop owners can accept payments quickly and safely, without handling large amounts of cash, which reduces the risk of theft. Many entrepreneurs have also used mobile money accounts to save small amounts regularly and eventually apply for small loans to grow their businesses.
+
+However, some challenges remain. Not everyone owns a mobile phone or feels comfortable using this technology, and network problems can sometimes prevent transactions. Despite these challenges, mobile money continues to spread quickly, changing how millions of people handle money every day.`,
+    vocab: [
+      { word: "to transform", definition: "transformer" },
+      { word: "rural", definition: "rural(e)" },
+      { word: "theft", definition: "vol" },
+      { word: "loan", definition: "prêt" },
+      { word: "transaction", definition: "transaction" },
+    ],
+    trueFalse: [
+      { statement: "Mobile money requires visiting a bank branch every time.", answer: false },
+      { statement: "Mobile money can reduce the risk of theft for shop owners.", answer: true },
+      { statement: "Everyone owns a mobile phone and finds the technology easy.", answer: false },
+      { statement: "The text says mobile money use is decreasing.", answer: false },
+    ],
+    questions: [
+      "What can users do with mobile money, according to the text?",
+      "How has mobile money helped small business owners?",
+      "What are two challenges mentioned regarding mobile money?",
+    ],
+  },
+  // ---------------- B2 (additional) ----------------
+  {
+    title: "The Power of Music Across Cultures",
+    level: "B2",
+    theme: "Culture",
+    ageGroup: "Lycée",
+    tags: ["musique", "culture", "mondialisation"],
+    body: `Music is often described as a universal language, and there is strong evidence to support this idea. Regardless of where a song originates, from a village drumming ceremony to a symphony orchestra, listeners across different cultures can often recognise basic emotions such as joy, sadness or excitement, even without understanding the lyrics.
+
+Throughout history, music has played a central role in bringing communities together. Traditional songs are used to celebrate harvests, mourn losses, and pass down stories from one generation to the next, long before written language became widespread in many societies. In this sense, music functions as a living archive of a community's history and values.
+
+In recent decades, globalisation and digital streaming platforms have accelerated the exchange of musical styles between cultures. Genres such as Afrobeat, originally rooted in West African rhythms, have gained enormous popularity worldwide, influencing pop music in Europe, the Americas and Asia. Similarly, Western genres like hip-hop have been adapted and blended with local languages and traditions across the African continent, creating entirely new sounds.
+
+This constant exchange raises interesting questions about cultural identity. Some critics worry that globalised music could eventually erase distinct local traditions. Others argue, more optimistically, that this blending strengthens cultural connections and allows unique traditions to reach much wider audiences than ever before.`,
+    vocab: [
+      { word: "universal", definition: "universel(le)" },
+      { word: "to mourn", definition: "pleurer (un deuil)" },
+      { word: "archive", definition: "archive" },
+      { word: "to accelerate", definition: "accélérer" },
+      { word: "to blend", definition: "mélanger, fusionner" },
+    ],
+    trueFalse: [
+      { statement: "Listeners can never recognise emotions in music from unfamiliar cultures.", answer: false },
+      { statement: "Traditional songs have historically helped pass down community stories.", answer: true },
+      { statement: "Afrobeat has had no influence on music outside Africa.", answer: false },
+      { statement: "Some critics worry that globalised music could erase local traditions.", answer: true },
+    ],
+    questions: [
+      "Why is music sometimes called a 'universal language'?",
+      "What role has traditional music historically played in communities?",
+      "What are the two opposing views mentioned about globalised music?",
+    ],
+  },
+  {
+    title: "Urbanisation in African Cities",
+    level: "B2",
+    theme: "Villes",
+    ageGroup: "Lycée",
+    tags: ["urbanisation", "société", "environnement"],
+    body: `African cities are among the fastest-growing urban areas in the world. Over the coming decades, millions of people are expected to move from rural areas to cities in search of better job opportunities, education and healthcare.
+
+This rapid urbanisation brings both opportunities and serious challenges. On the positive side, cities can offer greater access to schools, hospitals and formal employment than many rural areas can provide. Concentrating people and businesses in urban centres can also boost economic growth, as it becomes easier to build infrastructure and share resources efficiently.
+
+However, many cities are struggling to keep pace with this rapid growth. Housing shortages have led to the expansion of informal settlements, where basic services such as clean water, electricity and sanitation are often unreliable or completely absent. Traffic congestion has also become a major problem in many capital cities, increasing pollution and making daily commutes exhausting for residents.
+
+Urban planners argue that careful, long-term planning is essential to managing this growth sustainably. Investments in public transport, affordable housing and renewable energy could help cities absorb new residents without sacrificing quality of life. Some cities have also begun developing satellite towns nearby, designed to reduce pressure on overcrowded city centres while still offering residents access to urban opportunities.
+
+Without such planning, experts warn that the challenges of urbanisation could outweigh its many potential benefits.`,
+    vocab: [
+      { word: "urbanisation", definition: "urbanisation" },
+      { word: "informal settlement", definition: "quartier informel / bidonville" },
+      { word: "sanitation", definition: "assainissement" },
+      { word: "congestion", definition: "embouteillage, encombrement" },
+      { word: "sustainably", definition: "de manière durable" },
+    ],
+    trueFalse: [
+      { statement: "African cities are among the slowest-growing urban areas in the world.", answer: false },
+      { statement: "Informal settlements often lack reliable basic services.", answer: true },
+      { statement: "Traffic congestion is described as a minor issue.", answer: false },
+      { statement: "Some cities are developing satellite towns to reduce pressure on city centres.", answer: true },
+    ],
+    questions: [
+      "What opportunities does the text say cities can offer compared to rural areas?",
+      "What two major challenges of rapid urbanisation are described?",
+      "What solution do urban planners suggest for managing city growth?",
+    ],
+  },
+  {
+    title: "The Rise of E-Learning",
+    level: "B2",
+    theme: "Technologie",
+    ageGroup: "Lycée",
+    tags: ["éducation", "technologie", "école"],
+    body: `Over the past decade, e-learning has transformed from a niche option into a mainstream part of education systems around the world. Online courses, video lessons and digital classrooms now allow students to learn subjects ranging from mathematics to foreign languages without ever entering a traditional classroom.
+
+One of the biggest advantages of e-learning is flexibility. Students can often study at their own pace, choosing when and where to complete lessons. This is particularly valuable for people who work while studying, or who live far from schools and universities offering the courses they want to take.
+
+E-learning platforms have also made education more accessible in another sense: cost. Many online courses are cheaper than traditional classroom-based programmes, and some are even offered free of charge, opening opportunities to students who could not otherwise afford further education.
+
+However, e-learning is not without its drawbacks. Not all students have reliable access to computers or stable internet connections, which can create new inequalities rather than solving old ones. Additionally, some students find it harder to stay motivated without the structure and social interaction of a physical classroom, and teachers may find it more difficult to notice when a student is struggling.
+
+As technology continues to improve, many experts believe the future of education will combine both online and in-person learning, taking advantage of the strengths of each approach.`,
+    vocab: [
+      { word: "niche", definition: "de niche, spécialisé(e)" },
+      { word: "flexibility", definition: "flexibilité" },
+      { word: "accessible", definition: "accessible" },
+      { word: "inequality", definition: "inégalité" },
+      { word: "motivated", definition: "motivé(e)" },
+    ],
+    trueFalse: [
+      { statement: "E-learning has remained a niche, rarely-used option.", answer: false },
+      { statement: "Flexibility is described as a major advantage of e-learning.", answer: true },
+      { statement: "All students have equal access to computers and the internet.", answer: false },
+      { statement: "Experts believe the future will likely combine online and in-person learning.", answer: true },
+    ],
+    questions: [
+      "What flexibility does e-learning offer students, according to the text?",
+      "How has e-learning made education more accessible in terms of cost?",
+      "What two drawbacks of e-learning are mentioned?",
+    ],
+  },
+  {
+    title: "Food Security and Agriculture",
+    level: "B2",
+    theme: "Agriculture",
+    ageGroup: "Lycée",
+    tags: ["agriculture", "alimentation", "environnement"],
+    body: `Food security, meaning reliable access to enough safe and nutritious food, remains a major challenge in many parts of the world. Although global food production has increased significantly over the past century, millions of people still face hunger or malnutrition every year.
+
+Several factors contribute to this problem. Climate change is making weather patterns more unpredictable, causing droughts and floods that can destroy entire harvests. In many regions, farmers also lack access to modern equipment, quality seeds, and fertilisers that could help increase their yields. Poor roads and storage facilities mean that even when crops are successfully harvested, a significant portion can be lost before reaching markets.
+
+To address these challenges, governments and organisations are investing in a variety of solutions. Some programmes focus on training farmers in techniques such as crop rotation and water conservation, which can make farms more resilient to changing weather. Others invest in improving infrastructure, such as roads and storage warehouses, to reduce food waste after harvest.
+
+Technology is also playing a growing role. Mobile applications now allow farmers to check weather forecasts, market prices and farming advice directly from their phones. Some experts argue that combining traditional farming knowledge with modern technology offers the best path towards achieving lasting food security for growing populations.`,
+    vocab: [
+      { word: "malnutrition", definition: "malnutrition" },
+      { word: "drought", definition: "sécheresse" },
+      { word: "yield (noun)", definition: "rendement" },
+      { word: "crop rotation", definition: "rotation des cultures" },
+      { word: "warehouse", definition: "entrepôt" },
+    ],
+    trueFalse: [
+      { statement: "Global food production has decreased over the past century.", answer: false },
+      { statement: "Climate change is linked to more unpredictable weather patterns.", answer: true },
+      { statement: "Poor storage facilities can cause crops to be lost before reaching markets.", answer: true },
+      { statement: "The text says technology plays no role in improving food security.", answer: false },
+    ],
+    questions: [
+      "What factors does the text say contribute to food insecurity?",
+      "What kind of training can help make farms more resilient?",
+      "How is technology helping farmers, according to the text?",
+    ],
+  },
+  {
+    title: "The Debate Over School Uniforms",
+    level: "B2",
+    theme: "Éducation",
+    ageGroup: "Lycée",
+    tags: ["éducation", "société", "école"],
+    body: `The question of whether students should wear school uniforms has been debated for many years, and opinions remain sharply divided among parents, teachers and students themselves.
+
+Supporters of school uniforms argue that they promote equality among students. When everyone wears the same clothes, differences in family income become less visible, which can reduce bullying related to fashion or brand names. Uniforms are also said to create a stronger sense of school identity and discipline, helping students focus on their studies rather than on what to wear each morning.
+
+On the other hand, critics argue that uniforms limit students' freedom of self-expression. They believe that allowing students to choose their own clothes helps them develop their own identity and creativity from a young age. Some also point out that uniforms can be expensive for families, especially when growing children need new sizes every year, which can actually increase financial pressure rather than reduce inequality.
+
+Research on this topic has produced mixed results. Some studies suggest uniforms slightly improve attendance and behaviour, while others find no significant difference in academic performance. Ultimately, many education experts suggest that the decision should depend on each school's specific context and community values, rather than applying one single rule everywhere.`,
+    vocab: [
+      { word: "uniform", definition: "uniforme" },
+      { word: "bullying", definition: "harcèlement" },
+      { word: "self-expression", definition: "expression de soi" },
+      { word: "attendance", definition: "assiduité, présence" },
+      { word: "context", definition: "contexte" },
+    ],
+    trueFalse: [
+      { statement: "Supporters of uniforms argue they can reduce bullying related to fashion.", answer: true },
+      { statement: "Critics say uniforms can be expensive for families.", answer: true },
+      { statement: "Research has found uniforms always improve academic performance dramatically.", answer: false },
+      { statement: "The text concludes that uniforms should be mandatory in every school.", answer: false },
+    ],
+    questions: [
+      "What argument do supporters of uniforms make about equality?",
+      "What is one criticism of school uniforms mentioned in the text?",
+      "What do many education experts suggest about this decision?",
+    ],
+  },
+  // ---------------- C1 (additional) ----------------
+  {
+    title: "The Politics of Language in Multilingual Nations",
+    level: "C1",
+    theme: "Société",
+    ageGroup: "Lycée / prépa",
+    tags: ["langue", "société", "histoire"],
+    body: `In many countries around the world, particularly those with colonial histories, the choice of an official language is rarely a neutral administrative decision. It is, instead, deeply entangled with questions of identity, power and historical memory.
+
+Consider nations where dozens or even hundreds of indigenous languages coexist alongside a former colonial language, such as English, French or Portuguese. Governments in these contexts face a persistent dilemma. Adopting a single indigenous language as official risks alienating speakers of other local languages and may be perceived as favouring one ethnic group over others. Retaining the former colonial language, meanwhile, offers a degree of linguistic neutrality and international utility, particularly in trade, diplomacy and higher education, but can also be criticised as perpetuating colonial hierarchies, in which fluency in the coloniser's tongue continues to determine access to economic and political opportunity.
+
+This tension plays out concretely in national education systems. In many African nations, for instance, children are taught in a European language from an early age, despite research suggesting that early education delivered in a child's mother tongue tends to produce stronger long-term learning outcomes. Reforming this system, however, requires substantial investment: producing textbooks, training teachers and developing standardised curricula in dozens of languages is an enormously complex and costly undertaking.
+
+Some countries have pursued hybrid models, introducing mother-tongue instruction in early primary years before transitioning to a former colonial language in later schooling. Whether such compromises adequately balance pedagogical effectiveness against practical and political constraints remains a subject of ongoing debate among linguists, policymakers and communities themselves. What is clear is that language policy, far from being a purely technical matter, remains one of the most consequential and contested legacies of the colonial era.`,
+    vocab: [
+      { word: "entangled", definition: "enchevêtré(e), lié(e) de façon complexe" },
+      { word: "to alienate", definition: "aliéner, éloigner" },
+      { word: "to perpetuate", definition: "perpétuer" },
+      { word: "hierarchy", definition: "hiérarchie" },
+      { word: "undertaking", definition: "entreprise, tâche" },
+    ],
+    trueFalse: [
+      { statement: "Choosing an official language is described as a purely neutral, technical decision.", answer: false },
+      { statement: "Research is said to suggest mother-tongue early education can produce stronger learning outcomes.", answer: true },
+      { statement: "Reforming language policy is described as simple and inexpensive.", answer: false },
+      { statement: "Some countries use hybrid models combining mother-tongue and colonial-language instruction.", answer: true },
+    ],
+    questions: [
+      "What dilemma do governments face when choosing an official language, according to the text?",
+      "Why might teaching in a former colonial language be criticised, despite its practical advantages?",
+      "What compromise have some countries adopted regarding language of instruction?",
+    ],
+  },
+  {
+    title: "Space Exploration and National Prestige",
+    level: "C1",
+    theme: "Sciences",
+    ageGroup: "Lycée / prépa",
+    tags: ["sciences", "espace", "géopolitique"],
+    body: `Since the launch of Sputnik in 1957, space exploration has never been purely a scientific endeavour. It has consistently served as a powerful symbol of national capability, technological sophistication and geopolitical influence, a dynamic that continues to shape space programmes today.
+
+During the Cold War, the so-called Space Race between the United States and the Soviet Union was driven as much by ideological competition as by scientific curiosity. Each milestone, from the first satellite to the first human in orbit and eventually the first Moon landing, was framed domestically and internationally as evidence of a nation's superiority. Scientific achievements became, in effect, instruments of soft power.
+
+This dynamic has not disappeared in the twenty-first century; if anything, it has diversified. A growing number of nations, including India, China and the United Arab Emirates, have developed ambitious space programmes, sending missions to the Moon and Mars. For many of these countries, success in space signals rising global stature and technological maturity to both domestic and international audiences, functioning as a form of national branding.
+
+Critics argue that this prestige-driven framing can distort national priorities, directing substantial public funding toward space missions while pressing terrestrial challenges, such as poverty, healthcare and education, remain underfunded. Proponents counter that space programmes generate valuable scientific knowledge and technological innovation with practical applications well beyond space itself, from satellite communications to medical imaging technologies originally developed for spaceflight.
+
+Whatever position one takes in this debate, it seems clear that as long as space exploration remains a visible marker of national achievement, governments will continue to invest in it for reasons that extend well beyond scientific inquiry alone.`,
+    vocab: [
+      { word: "endeavour", definition: "entreprise, effort" },
+      { word: "geopolitical", definition: "géopolitique" },
+      { word: "milestone", definition: "étape clé, jalon" },
+      { word: "soft power", definition: "puissance douce (influence non coercitive)" },
+      { word: "terrestrial", definition: "terrestre" },
+    ],
+    trueFalse: [
+      { statement: "Space exploration has always been purely a scientific matter, unrelated to politics.", answer: false },
+      { statement: "The Space Race was partly driven by ideological competition during the Cold War.", answer: true },
+      { statement: "Only the United States and Russia currently run ambitious space programmes.", answer: false },
+      { statement: "Critics argue that space spending can divert funds from other pressing needs.", answer: true },
+    ],
+    questions: [
+      "What does the text say space achievements symbolised during the Cold War?",
+      "Why might a growing number of nations today invest in space programmes?",
+      "What criticism is raised against prestige-driven space spending, and how do proponents respond?",
+    ],
+  },
+  {
+    title: "The Gender Pay Gap Debate",
+    level: "C1",
+    theme: "Société",
+    ageGroup: "Lycée / prépa",
+    tags: ["société", "économie", "égalité"],
+    body: `Despite decades of legislation promoting equal pay, a persistent gap remains between the average earnings of men and women in most economies worldwide. Understanding the causes of this gap, however, requires moving beyond simplistic explanations toward a more nuanced analysis of labour markets.
+
+A portion of the measured pay gap can indeed be attributed to direct discrimination, where women are paid less than men for performing identical work. Numerous controlled studies, including some using identical résumés with only the applicant's name changed, have demonstrated that this form of bias still occurs in hiring and compensation decisions.
+
+However, economists generally agree that a substantial share of the overall gap stems from structural factors rather than direct discrimination alone. Women remain disproportionately represented in lower-paying sectors, such as caregiving and education, while being underrepresented in higher-paying fields like engineering and finance. Additionally, women continue to shoulder a greater share of unpaid domestic and childcare responsibilities in most societies, which frequently interrupts career progression, reduces opportunities for promotion, and limits participation in the workforce during critical early-career years.
+
+Addressing the gender pay gap, therefore, likely requires interventions operating on multiple levels simultaneously. These might include stronger anti-discrimination enforcement, policies supporting shared parental leave to distribute caregiving responsibilities more equitably, transparent salary reporting requirements that make pay disparities harder to conceal, and long-term efforts to encourage greater gender diversity across traditionally segregated professional fields.
+
+Critics of purely legislative solutions argue that deep cultural attitudes about gender roles must also shift for meaningful, lasting change to occur, suggesting that legal reform alone, however necessary, may be insufficient to fully close the gap.`,
+    vocab: [
+      { word: "legislation", definition: "législation" },
+      { word: "nuanced", definition: "nuancé(e)" },
+      { word: "disproportionately", definition: "de manière disproportionnée" },
+      { word: "disparity", definition: "disparité" },
+      { word: "segregated", definition: "ségrégué(e), séparé(e)" },
+    ],
+    trueFalse: [
+      { statement: "The text claims the gender pay gap has been completely eliminated by legislation.", answer: false },
+      { statement: "Controlled studies using identical résumés have found evidence of hiring bias.", answer: true },
+      { statement: "Women are described as overrepresented in higher-paying fields like engineering.", answer: false },
+      { statement: "The text suggests cultural attitudes, not just laws, may need to change.", answer: true },
+    ],
+    questions: [
+      "What evidence does the text mention for direct discrimination in hiring?",
+      "What structural factors are said to contribute to the gender pay gap?",
+      "What multiple interventions does the text suggest could help address the gap?",
+    ],
+  },
+  {
+    title: "Artificial Borders and Their Legacy",
+    level: "C1",
+    theme: "Histoire",
+    ageGroup: "Lycée / prépa",
+    tags: ["histoire", "société", "géopolitique"],
+    body: `Many of the political borders that define modern nation-states, particularly across Africa and the Middle East, were not drawn by the people who live within them. Instead, they were largely determined during the nineteenth and twentieth centuries by colonial powers, often with limited regard for existing ethnic, linguistic or cultural boundaries.
+
+Perhaps the most frequently cited example is the 1884-85 Berlin Conference, during which European powers negotiated the partition of Africa largely without African representatives present. Borders were frequently drawn using straight lines on maps, based on considerations of European strategic and economic interest rather than the social realities on the ground. As a consequence, numerous ethnic groups found themselves divided across two or more countries, while other borders forced historically distinct and sometimes rival communities into a single, newly created state.
+
+The long-term consequences of these decisions remain visible today. Some scholars argue that artificial borders have contributed to ongoing political instability in various regions, as governments have struggled to build cohesive national identities among populations with limited historical connection to one another. Others caution against overstating this explanation, however, pointing out that internal governance failures, economic mismanagement and external interference have also played significant roles in post-colonial conflicts, and that attributing instability solely to colonial-era borders risks oversimplifying a complex set of causes.
+
+Nevertheless, there is broad agreement that understanding this historical context remains essential for meaningfully engaging with contemporary political challenges in formerly colonised regions. Redrawing these borders is rarely considered a realistic or desirable solution today, given the further disruption it would likely cause, but acknowledging their artificial origins helps explain patterns that might otherwise seem puzzling to outside observers.`,
+    vocab: [
+      { word: "partition (noun)", definition: "partage, division" },
+      { word: "cohesive", definition: "cohérent(e), soudé(e)" },
+      { word: "mismanagement", definition: "mauvaise gestion" },
+      { word: "to oversimplify", definition: "simplifier à l'excès" },
+      { word: "puzzling", definition: "déroutant(e)" },
+    ],
+    trueFalse: [
+      { statement: "Most African borders were drawn by the people living within them.", answer: false },
+      { statement: "African representatives were present at the Berlin Conference negotiations.", answer: false },
+      { statement: "Some scholars link artificial borders to ongoing political instability.", answer: true },
+      { statement: "The text claims colonial borders are the sole cause of all post-colonial conflicts.", answer: false },
+    ],
+    questions: [
+      "What example does the text give of how African borders were determined?",
+      "What long-term consequence of artificial borders does the text describe?",
+      "What caution do some scholars raise about this explanation?",
+    ],
+  },
+  {
+    title: "The Ethics of Data Privacy",
+    level: "C1",
+    theme: "Technologie",
+    ageGroup: "Lycée / prépa",
+    tags: ["technologie", "éthique", "société"],
+    body: `Every time someone uses a smartphone, browses the internet or makes an online purchase, they generate data. This data, collected and analysed at enormous scale by technology companies, has become one of the most valuable resources of the modern economy, but it raises profound ethical questions that societies are only beginning to fully address.
+
+Companies argue that collecting user data allows them to improve their products, personalise user experiences and offer services free of charge, subsidised by targeted advertising rather than direct payment. From this perspective, data collection represents a reasonable exchange: users receive convenient, often free services in return for allowing companies to use their information.
+
+Critics, however, contend that this framing obscures a significant power imbalance. Most users have limited understanding of exactly what data is collected, how long it is retained, or with which third parties it may be shared. Complex privacy policies, often deliberately written in dense legal language, make genuinely informed consent difficult to achieve in practice. Furthermore, once collected, data can potentially be used in ways users never anticipated or agreed to, from influencing political opinions through targeted advertising to enabling discriminatory pricing based on inferred personal characteristics.
+
+In response to these concerns, several jurisdictions have introduced stricter data protection regulations, granting users greater rights to access, correct or delete their personal information, and requiring clearer consent mechanisms. Enforcement, however, remains inconsistent across different regions, and rapidly evolving technologies, such as artificial intelligence systems trained on vast datasets, continue to outpace existing regulatory frameworks.
+
+Ultimately, resolving the tension between technological innovation and individual privacy rights will likely require sustained cooperation between governments, companies and civil society, rather than a single definitive solution.`,
+    vocab: [
+      { word: "to subsidise", definition: "subventionner" },
+      { word: "to obscure", definition: "dissimuler, occulter" },
+      { word: "to retain", definition: "conserver" },
+      { word: "consent", definition: "consentement" },
+      { word: "jurisdiction", definition: "juridiction" },
+    ],
+    trueFalse: [
+      { statement: "Data collection is described as having no ethical implications at all.", answer: false },
+      { statement: "Privacy policies are said to always be written in simple, clear language.", answer: false },
+      { statement: "Some jurisdictions have introduced stricter data protection regulations.", answer: true },
+      { statement: "The text claims this issue has already been fully and permanently resolved.", answer: false },
+    ],
+    questions: [
+      "What argument do companies make in favour of collecting user data?",
+      "What power imbalance do critics highlight regarding data collection?",
+      "What response have some jurisdictions taken to address these concerns?",
+    ],
+  },
+  // ---------------- C2 (additional) ----------------
+  {
+    title: "The Anthropocene and the Limits of Human Control",
+    level: "C2",
+    theme: "Environnement",
+    ageGroup: "Prépa / université",
+    tags: ["environnement", "sciences", "philosophie"],
+    body: `The term "Anthropocene", though not yet formally adopted as a geological epoch by the International Commission on Stratigraphy, has gained widespread currency among scientists and the public alike as a way of describing the present era, one in which human activity has become the dominant force shaping the Earth's geology, atmosphere and ecosystems. The very existence of such a term marks a striking departure from the assumption, prevalent throughout much of human history, that nature constitutes a vast, largely stable backdrop against which comparatively modest human affairs unfold.
+
+Proponents of the Anthropocene framework argue that it captures something genuinely unprecedented: humanity's activities, from fossil fuel combustion to industrial agriculture and plastic production, now leave measurable, planet-spanning signatures, visible in ice cores, sediment layers and atmospheric composition, that will remain detectable for millennia. This represents, they contend, not merely an intensification of humanity's historical environmental impact but a qualitative shift in the relationship between humanity and the planet it inhabits.
+
+Yet the concept is not without its critics, whose objections extend well beyond narrow disputes over stratigraphic classification. Some scholars argue that framing the current crisis in universal terms, as a shared "human" geological signature, obscures profound disparities in responsibility. The carbon emissions driving climate change, for instance, have been overwhelmingly generated by a comparatively small number of industrialised nations and, within them, by their wealthiest inhabitants, even as the resulting consequences, from rising seas to intensifying droughts, disproportionately burden populations that have contributed least to the problem and possess the fewest resources to adapt. Terms such as "Capitalocene", proposed by some critical theorists, attempt to foreground this asymmetry by locating responsibility more precisely within particular economic and political systems rather than an undifferentiated humanity.
+
+Beyond questions of terminology and blame, the Anthropocene concept raises a deeper and arguably more unsettling philosophical challenge: it suggests that the comforting notion of nature as an external, stable entity that humanity merely inhabits, rather than fundamentally reshapes, may no longer be tenable. If human activity has become a genuinely geological force, then the conventional boundary separating "natural" history from human history begins to dissolve, with consequences that extend well beyond the natural sciences into how societies conceive of responsibility, governance and their own place within planetary systems that they can influence profoundly, but ultimately do not fully control.`,
+    vocab: [
+      { word: "epoch", definition: "époque, ère" },
+      { word: "unprecedented", definition: "sans précédent" },
+      { word: "stratigraphic", definition: "stratigraphique" },
+      { word: "asymmetry", definition: "asymétrie" },
+      { word: "tenable", definition: "tenable, défendable" },
+    ],
+    trueFalse: [
+      { statement: "The Anthropocene has already been formally and universally adopted as an official geological epoch.", answer: false },
+      { statement: "Proponents argue human activity now leaves planet-spanning, measurable signatures.", answer: true },
+      { statement: "The text states carbon emissions have been generated equally by all nations.", answer: false },
+      { statement: "The term 'Capitalocene' is mentioned as an attempt to highlight unequal responsibility.", answer: true },
+    ],
+    questions: [
+      "What striking assumption about nature does the Anthropocene framework challenge, according to the text?",
+      "What criticism do some scholars raise about framing the crisis in universal, 'human' terms?",
+      "What deeper philosophical challenge does the text say the Anthropocene concept raises?",
+    ],
+  },
+  {
+    title: "Meritocracy: Myth or Reality?",
+    level: "C2",
+    theme: "Société",
+    ageGroup: "Prépa / université",
+    tags: ["société", "philosophie", "égalité"],
+    body: `The ideal of meritocracy, the notion that social and economic rewards should be distributed according to individual talent and effort rather than inherited privilege, occupies a curious position in contemporary political discourse: it is simultaneously among the most widely endorsed principles across the political spectrum and among the most fiercely contested in practice.
+
+On its surface, meritocracy appears unassailable. Few would openly argue that positions of responsibility should be allocated according to birth rather than competence, and the principle underpins much of the legitimising rhetoric surrounding modern institutions, from university admissions to corporate hiring practices, which frequently present themselves as objective arbiters of ability rather than as social gatekeepers.
+
+Closer scrutiny, however, reveals substantial tension between meritocratic ideals and observable social outcomes. Critics point out that the conditions enabling individuals to develop and demonstrate "merit" in the first place, access to quality education, financial stability, social networks and even the less tangible cultural capital that helps individuals navigate elite institutions, are themselves profoundly unequal, and are typically inherited rather than earned. A child born into material comfort and stability, in other words, begins from a starting position that provides a decisive advantage in accumulating precisely the credentials that meritocratic systems then reward as evidence of individual merit, rendering the very notion of a level playing field largely illusory in practice.
+
+Some political philosophers go further still, arguing that meritocracy, even where it functions with reasonable accuracy in identifying genuine talent, carries troubling psychological and social consequences that are frequently overlooked. If success is genuinely earned through merit alone, then, the reasoning implicitly suggests, failure must likewise be attributable primarily to individual deficiency rather than to structural circumstance, a conclusion that can foster corrosive attitudes both toward those who struggle economically and among the successful themselves, who may develop an inflated, ultimately unwarranted sense of having single-handedly earned every advantage they enjoy, with little acknowledgment of the contingent circumstances, unearned privileges and considerable luck that also shaped their trajectories.
+
+Reconciling meritocratic ideals with these structural realities remains an unresolved and perhaps irresolvable tension at the heart of contemporary debates about fairness, opportunity and social mobility, one that shows little sign of yielding to easy institutional fixes.`,
+    vocab: [
+      { word: "unassailable", definition: "incontestable, inattaquable" },
+      { word: "arbiter", definition: "arbitre" },
+      { word: "scrutiny", definition: "examen minutieux" },
+      { word: "credential", definition: "qualification, diplôme" },
+      { word: "corrosive", definition: "corrosif(ve), délétère" },
+    ],
+    trueFalse: [
+      { statement: "Meritocracy is described as a principle almost nobody publicly endorses.", answer: false },
+      { statement: "The text argues the conditions enabling 'merit' are often unequally inherited.", answer: true },
+      { statement: "The text claims a level playing field exists in practice for developing merit.", answer: false },
+      { statement: "Some philosophers argue meritocracy can foster harmful attitudes toward those who struggle.", answer: true },
+    ],
+    questions: [
+      "Why does the text describe meritocracy as widely endorsed yet fiercely contested?",
+      "What factors does the text say unequally shape a person's ability to demonstrate 'merit'?",
+      "What psychological consequence of meritocratic belief do some philosophers highlight?",
+    ],
+  },
+  {
+    title: "The Attention Economy and Cognitive Autonomy",
+    level: "C2",
+    theme: "Technologie",
+    ageGroup: "Prépa / université",
+    tags: ["technologie", "psychologie", "société"],
+    body: `Contemporary digital platforms operate within what scholars increasingly term the "attention economy", an economic model in which human attention itself, rather than any physical product, constitutes the primary commodity being captured, measured and ultimately sold, typically to advertisers seeking access to engaged audiences.
+
+This economic logic has profound implications for platform design. Since revenue scales directly with the amount of time and engagement a platform can extract from its users, companies possess strong structural incentives to design systems that maximise engagement, often through mechanisms explicitly informed by behavioural psychology: variable reward schedules reminiscent of gambling mechanics, algorithmically curated content feeds optimised for emotional engagement rather than informational value, and notification systems engineered to interrupt attention at psychologically opportune moments, all calibrated less toward user wellbeing than toward maximising the time users spend engaged with the platform.
+
+Critics argue that this dynamic raises questions extending well beyond simple concerns about excessive screen time or individual self-control. If platforms are deliberately engineered by teams of engineers and psychologists specifically to exploit predictable cognitive vulnerabilities, the argument runs, then framing the resulting patterns of compulsive engagement primarily as a matter of individual willpower or personal responsibility may fundamentally misdiagnose the nature of the problem, much as blaming individual consumers exclusively for obesity while ignoring the deliberate engineering of hyper-palatable, heavily marketed foods would misdiagnose the structural dimensions of that comparable public health challenge.
+
+Some theorists frame this concern in terms of cognitive autonomy: the capacity of individuals to direct their own attention, thoughts and time according to their own considered values and goals, rather than having these faculties systematically shaped and redirected by external commercial interests operating largely outside conscious awareness. From this perspective, sustained exposure to attention-capturing systems designed by sophisticated teams with access to vast behavioural data may gradually erode an individual's capacity for the sustained, undistracted concentration that activities such as deep reading, complex reasoning and creative work typically require, with consequences that remain difficult to measure with precision but are increasingly the subject of serious scholarly and public concern.
+
+Addressing these concerns meaningfully, proponents of stronger regulation argue, will likely require intervention beyond individual behavioural changes alone, potentially including design regulations, algorithmic transparency requirements, and a broader reconsideration of the underlying economic incentives that currently reward the capture of attention above nearly all other considerations, however genuinely valuable those other considerations might be to users themselves.`,
+    vocab: [
+      { word: "commodity", definition: "marchandise, produit" },
+      { word: "incentive", definition: "incitation, motivation" },
+      { word: "opportune", definition: "opportun(e)" },
+      { word: "compulsive", definition: "compulsif(ve)" },
+      { word: "to erode", definition: "éroder" },
+    ],
+    trueFalse: [
+      { statement: "In the attention economy, human attention itself is described as a commodity.", answer: true },
+      { statement: "The text claims platforms have no incentive to maximise user engagement.", answer: false },
+      { statement: "The obesity comparison is used to question purely individual explanations of the problem.", answer: true },
+      { statement: "The text concludes that individual willpower alone is sufficient to solve this issue.", answer: false },
+    ],
+    questions: [
+      "What is the 'attention economy', as defined in the text?",
+      "What design mechanisms does the text mention as being used to maximise engagement?",
+      "What is 'cognitive autonomy', and why do some theorists believe it is threatened?",
+    ],
+  },
+  {
+    title: "Postcolonial Identity and the Politics of Memory",
+    level: "C2",
+    theme: "Culture",
+    ageGroup: "Prépa / université",
+    tags: ["histoire", "culture", "société"],
+    body: `For societies emerging from colonial rule, the process of constructing a coherent national identity is rarely a straightforward return to some imagined pre-colonial authenticity. Rather, it typically involves a complex, often contested negotiation between multiple, sometimes competing, layers of historical experience: indigenous traditions disrupted but not entirely erased by colonisation, the undeniable material and institutional legacies left by colonial administrations, and the lived realities of contemporary, often deeply globalised societies that cannot simply be wished away in pursuit of cultural purity.
+
+This tension manifests concretely in debates over collective memory and its public representation. Should national museums and monuments primarily celebrate pre-colonial achievements, emphasising continuity with a past that colonialism sought, often violently, to interrupt or erase? Should they instead foreground the resistance movements and anti-colonial struggles that ultimately secured independence, framing national identity substantially around the act of liberation itself? Or should postcolonial societies engage more directly and explicitly with the colonial period's undeniable complexities, acknowledging both its manifest injustices and the ways in which contemporary institutions, languages and even national borders remain, for better or worse, shaped by that same disputed history?
+
+Scholars of memory studies argue that how societies answer these questions carries substantial contemporary political weight, extending well beyond mere historical curiosity or academic interest. Memory, in this view, is never simply a neutral, objective record of what occurred; it is actively and continuously constructed, contested and reconstructed to serve present purposes, whether legitimising current political arrangements, mobilising particular constituencies, or articulating aspirations for a still-unrealised future. A national narrative emphasising unbroken indigenous continuity, for instance, may serve to unify diverse populations around a shared, if partly idealised, heritage, but risks obscuring the genuine internal diversity, historical conflicts and power imbalances that existed within societies long before colonisation ever began.
+
+Conversely, a narrative constructed too heavily around colonial victimhood, however historically grounded and justified in its own terms, risks inadvertently defining a nation's identity primarily in relation to its former coloniser, potentially constraining rather than expanding the imaginative space available for envisioning genuinely self-determined, forward-looking national futures. Navigating between these considerable risks, without denying either the reality of indigenous heritage or the undeniable, lasting impact of colonial rule, remains one of the central and ongoing challenges facing postcolonial nation-building efforts well into the twenty-first century.`,
+    vocab: [
+      { word: "coherent", definition: "cohérent(e)" },
+      { word: "authenticity", definition: "authenticité" },
+      { word: "manifest (adjective)", definition: "manifeste, évident(e)" },
+      { word: "constituency", definition: "électorat, groupe de soutien" },
+      { word: "inadvertently", definition: "par inadvertance, involontairement" },
+    ],
+    trueFalse: [
+      { statement: "Constructing postcolonial identity is described as a simple return to a pure pre-colonial past.", answer: false },
+      { statement: "The text presents multiple, sometimes competing, approaches to representing collective memory.", answer: true },
+      { statement: "Memory is described as a neutral, unchanging record of past events.", answer: false },
+      { statement: "The text argues that overemphasising colonial victimhood carries no risks at all.", answer: false },
+    ],
+    questions: [
+      "What three layers of historical experience does the text say postcolonial identity must negotiate?",
+      "What different approaches to public memory (museums, monuments) does the text describe?",
+      "What risk does the text associate with a national narrative built too heavily around colonial victimhood?",
+    ],
+  },
 ];
