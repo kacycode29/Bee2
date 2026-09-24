@@ -3,6 +3,7 @@ import { requireAdmin } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import { Card, Badge } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { ResetPasswordButton } from "@/components/admin/ResetPasswordButton";
 
 async function toggleRoleAction(formData: FormData) {
   "use server";
@@ -59,12 +60,15 @@ export default async function AdminUsersPage() {
                 </td>
                 <td className="py-2 pr-4">
                   {u.id !== admin.id && (
-                    <form action={toggleRoleAction}>
-                      <input type="hidden" name="id" value={u.id} />
-                      <Button type="submit" variant="ghost" size="sm">
-                        {u.role === "ADMIN" ? "Rétrograder" : "Promouvoir admin"}
-                      </Button>
-                    </form>
+                    <div className="flex flex-wrap items-start gap-2">
+                      <form action={toggleRoleAction}>
+                        <input type="hidden" name="id" value={u.id} />
+                        <Button type="submit" variant="ghost" size="sm">
+                          {u.role === "ADMIN" ? "Rétrograder" : "Promouvoir admin"}
+                        </Button>
+                      </form>
+                      <ResetPasswordButton userId={u.id} />
+                    </div>
                   )}
                 </td>
               </tr>

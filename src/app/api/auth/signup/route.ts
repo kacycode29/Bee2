@@ -5,6 +5,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { licenseDurationDays, normalizeLicenseCode } from "@/lib/license";
 import { getOrCreateDeviceId, getRequestMeta } from "@/lib/device";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const signupSchema = z.object({
   username: z
@@ -26,6 +27,18 @@ class LicenseAlreadyClaimedError extends Error {}
  * (username availability + key validity + device slot) succeeds.
  */
 export async function POST(request: Request) {
+  const { ipAddress, userAgent } = await getRequestMeta();
+  const rateLimit = checkRateLimit(`signup:${ipAddress ?? "unknown"}`, {
+    limit: 8,
+    windowMs: 15 * 60 * 1000,
+  });
+  if (!rateLimit.ok) {
+    return NextResponse.json(
+      { error: "Trop de tentatives. Réessayez dans quelques minutes." },
+      { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSec) } }
+    );
+  }
+
   const body = await request.json().catch(() => null);
   const parsed = signupSchema.safeParse(body);
   if (!parsed.success) {
@@ -66,7 +79,6 @@ export async function POST(request: Request) {
   }
 
   const deviceFingerprint = await getOrCreateDeviceId();
-  const { ipAddress, userAgent } = await getRequestMeta();
 
   const passwordHash = await bcrypt.hash(password, 12);
   const durationDays = licenseDurationDays(license.type);

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { getRequestMeta } from "@/lib/device";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const schema = z.object({
   username: z.string().min(3),
@@ -14,6 +16,18 @@ const schema = z.object({
  * ADMIN_SETUP_TOKEN (server-only secret) — rotate/remove it after use.
  */
 export async function POST(request: Request) {
+  const { ipAddress } = await getRequestMeta();
+  const rateLimit = checkRateLimit(`admin-bootstrap:${ipAddress ?? "unknown"}`, {
+    limit: 5,
+    windowMs: 15 * 60 * 1000,
+  });
+  if (!rateLimit.ok) {
+    return NextResponse.json(
+      { error: "Trop de tentatives. Réessayez dans quelques minutes." },
+      { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSec) } }
+    );
+  }
+
   const configuredToken = process.env.ADMIN_SETUP_TOKEN;
   if (!configuredToken) {
     return NextResponse.json(

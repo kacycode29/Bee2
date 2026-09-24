@@ -1,14 +1,20 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { CredentialsSignin } from "next-auth";
 import bcrypt from "bcryptjs";
 import { authConfig } from "@/auth.config";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const credentialsSchema = z.object({
   username: z.string().min(3),
   password: z.string().min(8),
 });
+
+class TooManyAttemptsError extends CredentialsSignin {
+  code = "too_many_attempts";
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -18,7 +24,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         username: { label: "Nom d'utilisateur", type: "text" },
         password: { label: "Mot de passe", type: "password" },
       },
-      async authorize(rawCredentials) {
+      async authorize(rawCredentials, request) {
+        const ipAddress =
+          request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+          request.headers.get("x-real-ip") ??
+          "unknown";
+        const rateLimit = checkRateLimit(`login:${ipAddress}`, {
+          limit: 10,
+          windowMs: 15 * 60 * 1000,
+        });
+        if (!rateLimit.ok) throw new TooManyAttemptsError();
+
         const parsed = credentialsSchema.safeParse(rawCredentials);
         if (!parsed.success) return null;
         const { username, password } = parsed.data;

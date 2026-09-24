@@ -5,6 +5,7 @@ import { Card, Badge } from "@/components/ui/Card";
 import { LinkButton } from "@/components/ui/Button";
 import { MinimalHeader } from "@/components/layout/MinimalHeader";
 import { DeviceList } from "@/components/account/DeviceList";
+import { ChangePasswordForm } from "@/components/account/ChangePasswordForm";
 
 const STATUS_TONE: Record<string, "success" | "warning" | "danger" | "default"> = {
   ACTIVE: "success",
@@ -104,6 +105,17 @@ export default async function AccountPage() {
             </div>
           </Card>
         )}
+
+        <Card className="mt-6">
+          <h2 className="font-semibold text-slate-900">Mot de passe</h2>
+          <p className="mt-1 text-sm text-slate-500">
+            Changez votre mot de passe à tout moment, y compris après une réinitialisation par
+            un administrateur.
+          </p>
+          <div className="mt-4">
+            <ChangePasswordForm />
+          </div>
+        </Card>
       </div>
     </div>
   );

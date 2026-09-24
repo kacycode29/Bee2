@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { licenseDurationDays, normalizeLicenseCode } from "@/lib/license";
 import { getOrCreateDeviceId, getRequestMeta } from "@/lib/device";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const activateSchema = z.object({
   code: z.string().min(6).max(40),
@@ -17,6 +18,17 @@ export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user) {
     return NextResponse.json({ error: "Non authentifié." }, { status: 401 });
+  }
+
+  const rateLimit = checkRateLimit(`activate:${session.user.id}`, {
+    limit: 10,
+    windowMs: 15 * 60 * 1000,
+  });
+  if (!rateLimit.ok) {
+    return NextResponse.json(
+      { error: "Trop de tentatives. Réessayez dans quelques minutes." },
+      { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSec) } }
+    );
   }
 
   const body = await request.json().catch(() => null);

@@ -26,7 +26,11 @@ export default function LoginPage() {
     });
     setLoading(false);
     if (res?.error) {
-      setError("Nom d'utilisateur ou mot de passe incorrect.");
+      setError(
+        res.code === "too_many_attempts"
+          ? "Trop de tentatives. Réessayez dans quelques minutes."
+          : "Nom d'utilisateur ou mot de passe incorrect."
+      );
       return;
     }
     router.push("/dashboard");
@@ -69,7 +73,13 @@ export default function LoginPage() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-slate-500">
+        <p className="mt-3 text-center text-sm">
+          <Link href="/forgot-password" className="font-medium text-amber-600 hover:underline">
+            Mot de passe oublié ?
+          </Link>
+        </p>
+
+        <p className="mt-3 text-center text-sm text-slate-500">
           Pas encore de compte ?{" "}
           <Link href="/signup" className="font-medium text-amber-600 hover:underline">
             Créer un compte
